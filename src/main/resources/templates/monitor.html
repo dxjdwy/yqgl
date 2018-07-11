@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--meta tags-->
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Services Listing HTML5 CSS3 template">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript, services, listing">
+    <meta name="author" content="Ui-DesignLab">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--end meta tags-->
+
+    <title>Dashboard</title>
+    <!--stylesheets-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
+    <link rel="stylesheet" href="css/bootstrap-table-sticky-header.css">
+    <link rel="stylesheet" href="vendor/css/animate.min.css">
+    <link rel="stylesheet" href="vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/perfect-scrollbar/css/perfect-scrollbar.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <!--end stylesheets-->
+
+    <!--google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Cairo%7CNosifer%7CPoppins%7CQuicksand:700%7CRaleway%7CTangerine%7CHind+Vadodara" rel="stylesheet">
+    <!--end google fonts-->
+
+</head>
+<body>
+
+<!--banner-->
+    <nav class="site-top-nav">
+        <div class="logo">
+            <a href="index">
+                <img src="img/logo.png" alt="">
+                <strong>设备管家</strong>
+            </a>
+        </div>
+        <ul class="site-menu">
+        <li><a href="index">主页</a></li>
+		<li><a href="#">关于我们</a></li>
+        </ul>
+        <i class="nav-toggle fa fa-bars"></i>
+    </nav>
+
+<!--end banner-->
+
+<!--our services-->
+
+
+        <!--<h1 align="center">设备列表</h1>-->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group" style="margin-top:15px">
+                        <label class="control-label col-sm-1" for="txt_search_instrName">设备名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_instrName">
+                        </div>
+                        <label class="control-label col-sm-1" for="txt_search_instrId">设备编号</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_instrId">
+                        </div>
+                        <!--<label class="control-label col-sm-1" for="txt_search_instrType">设备类型</label>-->
+                        <!--<div class="col-sm-3">-->
+                            <!--<input type="text" class="form-control" id="txt_search_instrType">-->
+                        <!--</div>-->
+                        <!--<label class="control-label col-sm-1" for="txt_search_instrUser">借用人</label>-->
+                        <!--<div class="col-sm-3">-->
+                            <!--<input type="text" class="form-control" id="txt_search_instrUser">-->
+                        <!--</div>-->
+                        <div class="col-sm-4" style="text-align:center;">
+                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            </button>
+            <button id="btn_edit" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+            </button>
+            <button id="btn_delete" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
+        </div>
+        <table id="tb_instr"></table>
+
+<!--end our services-->
+
+<!--page loader-->
+<div class="page-loader">
+    <div class="loader"><img src="img/logo.png" alt=""></div>
+</div>
+<!--end page loader-->
+
+
+<div class="bottom-strip">
+    <div class="cards-accepted">
+        <!--<em>Cards Accepted:</em>-->
+        <!--<img src="img/card-logos.png" alt="">-->
+    </div>
+    <div class="copyright"><i class="fa fa-copyright"></i> <span>Copyright &copy; 2018. 航天科工二院二十三所  All rights reserved.</span></div>
+    <div class="country"></div>
+</div>
+<!--end footer section-->
+
+<!--scripts-->
+<script src="js/jquery.min.js"></script>
+<script src="vendor/js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="vendor/js/alertify.js"></script>
+<script src="vendor/js/jquery.knob.min.js"></script>
+<!--[if IE]><script type="text/javascript" src="vendor/js/excanvas.js"></script><![endif]-->
+<script src="vendor/js/summernote-bs4.min.js"></script>
+<script src="vendor/js/dropzone.js"></script>
+<script src="vendor/OwlCarousel2-2.2.1/owl.carousel.min.js"></script>
+<script src="vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="vendor/js/typed.js"></script>
+<script src="js/app.js"></script>
+
+<script src="js/bootstrap-table.js"></script>
+<script src="js/bootstrap-table-sticky-header.js"></script>
+<script src="js/bootstrap-table-zh-CN.min.js"></script>
+<!--end scripts-->
+
+</body>
+<script>
+
+    // var $table = $('#table');
+    // // your custom ajax request here
+    // function ajaxRequest(params) {
+    //     // just use setTimeout
+    //     setTimeout(function () {
+    //         params.success({
+    //             total: 100,
+    //             rows: [{
+    //                 "id": 0,
+    //                 "instrName": "Item 0",
+    //                 "instrId": "$0"
+    //             }]
+    //         });
+    //     }, 1000);
+    // }
+
+    selections = [];
+    stickyHeaderOffsetY = 0;
+    $(function () {
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+        //2.初始化Button的点击事件
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+         });
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#tb_instr').bootstrapTable({
+
+                url: 'getInstrListPage',         //请求后台的URL（*）
+                method: 'post',                      //请求方式（*）
+                contentType:"application/x-www-form-urlencoded",
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+              //  height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                stickyHeader:true,
+                stickyHeaderOffsetY:stickyHeaderOffsetY + 'px',
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                }, {
+                    field: 'instrId',
+                    title: '设备编号',
+                    align: 'center',
+                }, {
+                    field: 'instrName',
+                    title: '设备名称',
+                    align: 'center',
+                }, {
+                    field: 'instrType',
+                    title: '设备类型',
+                    align: 'center',
+                },{
+                    field: 'instrConnStatus',
+                    title: '在线情况',
+                    align: 'center',
+                    formatter:formatterInstrConnStatus,
+                },
+
+                ]
+            });
+        };
+        //value代表该列的值，row代表当前对象
+        function formatterInstrConnStatus(value,row,index){
+            return value == 1 ? "在线" : "离线";
+
+        }
+
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+
+                instrName: $("#txt_search_instrName").val(),
+                instrId: $("#txt_search_instrId").val()
+
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+
+    var ButtonInit = function () {
+        var oInit = new Object();
+        var postdata = {};
+
+        oInit.Init = function () {
+            //初始化页面上面的按钮事件
+        };
+
+        return oInit;
+    };
+
+</script>
+</html>
+

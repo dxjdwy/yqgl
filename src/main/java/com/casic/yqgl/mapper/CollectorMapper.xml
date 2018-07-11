@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.casic.yqgl.mapper.CollectorMapper">
+  <resultMap id="BaseResultMap" type="com.casic.yqgl.model.Collector">
+    <id column="collector_id" jdbcType="INTEGER" property="collectorId" />
+    <result column="collector_name" jdbcType="VARCHAR" property="collectorName" />
+    <result column="collector_ip" jdbcType="VARCHAR" property="collectorIp" />
+    <result column="collector_address" jdbcType="VARCHAR" property="collectorAddress" />
+    <result column="collector_status" jdbcType="VARCHAR" property="collectorStatus" />
+    <result column="collector_port" jdbcType="INTEGER" property="collectorPort" />
+    <result column="collector_gateway" jdbcType="VARCHAR" property="collectorGateway" />
+    <result column="collector_mask" jdbcType="VARCHAR" property="collectorMask" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    collector_id, collector_name, collector_ip, collector_address, collector_status, 
+    collector_port, collector_gateway, collector_mask
+  </sql>
+
+    <select id="getTotal" resultType="int">
+        SELECT count(1) FROM collector
+    </select>
+
+    <select id="getCollectorListPage" resultMap="BaseResultMap">
+        SELECT * FROM collector
+        LIMIT #{offset},#{limit}
+    </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from collector
+    where collector_id = #{collectorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from collector
+    where collector_id = #{collectorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.casic.yqgl.model.Collector">
+    insert into collector (collector_id, collector_name, collector_ip, 
+      collector_address, collector_status, collector_port, 
+      collector_gateway, collector_mask)
+    values (#{collectorId,jdbcType=INTEGER}, #{collectorName,jdbcType=VARCHAR}, #{collectorIp,jdbcType=VARCHAR}, 
+      #{collectorAddress,jdbcType=VARCHAR}, #{collectorStatus,jdbcType=VARCHAR}, #{collectorPort,jdbcType=INTEGER}, 
+      #{collectorGateway,jdbcType=VARCHAR}, #{collectorMask,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.casic.yqgl.model.Collector">
+    insert into collector
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="collectorId != null">
+        collector_id,
+      </if>
+      <if test="collectorName != null">
+        collector_name,
+      </if>
+      <if test="collectorIp != null">
+        collector_ip,
+      </if>
+      <if test="collectorAddress != null">
+        collector_address,
+      </if>
+      <if test="collectorStatus != null">
+        collector_status,
+      </if>
+      <if test="collectorPort != null">
+        collector_port,
+      </if>
+      <if test="collectorGateway != null">
+        collector_gateway,
+      </if>
+      <if test="collectorMask != null">
+        collector_mask,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="collectorId != null">
+        #{collectorId,jdbcType=INTEGER},
+      </if>
+      <if test="collectorName != null">
+        #{collectorName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorIp != null">
+        #{collectorIp,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorAddress != null">
+        #{collectorAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorStatus != null">
+        #{collectorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorPort != null">
+        #{collectorPort,jdbcType=INTEGER},
+      </if>
+      <if test="collectorGateway != null">
+        #{collectorGateway,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorMask != null">
+        #{collectorMask,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.casic.yqgl.model.Collector">
+    update collector
+    <set>
+      <if test="collectorName != null">
+        collector_name = #{collectorName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorIp != null">
+        collector_ip = #{collectorIp,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorAddress != null">
+        collector_address = #{collectorAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorStatus != null">
+        collector_status = #{collectorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorPort != null">
+        collector_port = #{collectorPort,jdbcType=INTEGER},
+      </if>
+      <if test="collectorGateway != null">
+        collector_gateway = #{collectorGateway,jdbcType=VARCHAR},
+      </if>
+      <if test="collectorMask != null">
+        collector_mask = #{collectorMask,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where collector_id = #{collectorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.casic.yqgl.model.Collector">
+    update collector
+    set collector_name = #{collectorName,jdbcType=VARCHAR},
+      collector_ip = #{collectorIp,jdbcType=VARCHAR},
+      collector_address = #{collectorAddress,jdbcType=VARCHAR},
+      collector_status = #{collectorStatus,jdbcType=VARCHAR},
+      collector_port = #{collectorPort,jdbcType=INTEGER},
+      collector_gateway = #{collectorGateway,jdbcType=VARCHAR},
+      collector_mask = #{collectorMask,jdbcType=VARCHAR}
+    where collector_id = #{collectorId,jdbcType=INTEGER}
+  </update>
+</mapper>

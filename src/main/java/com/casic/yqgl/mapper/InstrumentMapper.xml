@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.casic.yqgl.mapper.InstrumentMapper">
+  <resultMap id="BaseResultMap" type="com.casic.yqgl.model.Instrument">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="instr_id" jdbcType="VARCHAR" property="instrId" />
+    <result column="instr_name" jdbcType="VARCHAR" property="instrName" />
+    <result column="instr_ip" jdbcType="VARCHAR" property="instrIp" />
+    <result column="instr_create_date" jdbcType="DATE" property="instrCreateDate" />
+    <result column="instr_type" jdbcType="VARCHAR" property="instrType" />
+    <result column="instr_manufacturer" jdbcType="VARCHAR" property="instrManufacturer" />
+    <result column="instr_manufacturer_id" jdbcType="VARCHAR" property="instrManufacturerId" />
+    <result column="instr_user" jdbcType="VARCHAR" property="instrUser" />
+    <result column="instr_dpt" jdbcType="VARCHAR" property="instrDpt" />
+    <result column="instr_lease_date" jdbcType="DATE" property="instrLeaseDate" />
+    <result column="instr_conn_status" jdbcType="VARCHAR" property="instrConnStatus" />
+    <result column="instr_valid" jdbcType="TINYINT" property="instrValid" />
+    <result column="instr_cc_id" jdbcType="VARCHAR" property="instrCcId" />
+    <result column="instr_collector_id" jdbcType="VARCHAR" property="instrCollectorId" />
+    <result column="instr_runtime" jdbcType="VARCHAR" property="instrRuntime" />
+    <result column="instr_real_runtime" jdbcType="VARCHAR" property="instrRealRuntime" />
+    <result column="instr_utilization" jdbcType="VARCHAR" property="instrUtilization" />
+    <result column="instr_original_value" jdbcType="VARCHAR" property="instrOriginalValue" />
+    <result column="instr_now_value" jdbcType="VARCHAR" property="instrNowValue" />
+    <result column="instr_depreciation" jdbcType="VARCHAR" property="instrDepreciation" />
+    <result column="instr_expire_date" jdbcType="DATE" property="instrExpireDate" />
+    <result column="instr_catg" jdbcType="VARCHAR" property="instrCatg" />
+    <result column="instr_res" jdbcType="VARCHAR" property="instrRes" />
+    <result column="instr_address" jdbcType="VARCHAR" property="instrAddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, instr_id, instr_name, instr_ip, instr_create_date, instr_type, instr_manufacturer, 
+    instr_manufacturer_id, instr_user, instr_dpt, instr_lease_date, instr_conn_status, 
+    instr_valid, instr_cc_id, instr_collector_id, instr_runtime, instr_real_runtime, 
+    instr_utilization, instr_original_value, instr_now_value, instr_depreciation, instr_expire_date, 
+    instr_catg, instr_res, instr_address
+  </sql>
+  <select id="getTotal" resultType="int">
+    SELECT count(1) FROM instrument
+    <if test="instrName!=null and instrName !=''">
+      AND instr_name LIKE CONCAT('%',#{instrName},'%')
+    </if>
+    <if test="instrId!=null and instrId !=''">
+      AND instr_id = #{instrId}
+    </if>
+  </select>
+
+  <select id="getInstrListPage" resultMap="BaseResultMap">
+    SELECT * FROM instrument
+    <if test="instrName!=null and instrName !=''">
+      AND instr_name LIKE CONCAT('%',#{instrName},'%')
+    </if>
+    <if test="instrId!=null and instrId !=''">
+      AND instr_id = #{instrId}
+    </if>
+    LIMIT #{offset},#{limit}
+  </select>
+
+
+  <select id="getInstrList" resultMap="BaseResultMap">
+    select
+      *
+    from instrument
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from instrument
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from instrument
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.casic.yqgl.model.Instrument">
+    insert into instrument (id, instr_id, instr_name, 
+      instr_ip, instr_create_date, instr_type, 
+      instr_manufacturer, instr_manufacturer_id, 
+      instr_user, instr_dpt, instr_lease_date, 
+      instr_conn_status, instr_valid, instr_cc_id, 
+      instr_collector_id, instr_runtime, instr_real_runtime, 
+      instr_utilization, instr_original_value, instr_now_value, 
+      instr_depreciation, instr_expire_date, instr_catg, 
+      instr_res, instr_address)
+    values (#{id,jdbcType=INTEGER}, #{instrId,jdbcType=VARCHAR}, #{instrName,jdbcType=VARCHAR}, 
+      #{instrIp,jdbcType=VARCHAR}, #{instrCreateDate,jdbcType=DATE}, #{instrType,jdbcType=VARCHAR}, 
+      #{instrManufacturer,jdbcType=VARCHAR}, #{instrManufacturerId,jdbcType=VARCHAR}, 
+      #{instrUser,jdbcType=VARCHAR}, #{instrDpt,jdbcType=VARCHAR}, #{instrLeaseDate,jdbcType=DATE}, 
+      #{instrConnStatus,jdbcType=VARCHAR}, #{instrValid,jdbcType=TINYINT}, #{instrCcId,jdbcType=VARCHAR}, 
+      #{instrCollectorId,jdbcType=VARCHAR}, #{instrRuntime,jdbcType=VARCHAR}, #{instrRealRuntime,jdbcType=VARCHAR}, 
+      #{instrUtilization,jdbcType=VARCHAR}, #{instrOriginalValue,jdbcType=VARCHAR}, #{instrNowValue,jdbcType=VARCHAR}, 
+      #{instrDepreciation,jdbcType=VARCHAR}, #{instrExpireDate,jdbcType=DATE}, #{instrCatg,jdbcType=VARCHAR}, 
+      #{instrRes,jdbcType=VARCHAR}, #{instrAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.casic.yqgl.model.Instrument">
+    insert into instrument
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="instrId != null">
+        instr_id,
+      </if>
+      <if test="instrName != null">
+        instr_name,
+      </if>
+      <if test="instrIp != null">
+        instr_ip,
+      </if>
+      <if test="instrCreateDate != null">
+        instr_create_date,
+      </if>
+      <if test="instrType != null">
+        instr_type,
+      </if>
+      <if test="instrManufacturer != null">
+        instr_manufacturer,
+      </if>
+      <if test="instrManufacturerId != null">
+        instr_manufacturer_id,
+      </if>
+      <if test="instrUser != null">
+        instr_user,
+      </if>
+      <if test="instrDpt != null">
+        instr_dpt,
+      </if>
+      <if test="instrLeaseDate != null">
+        instr_lease_date,
+      </if>
+      <if test="instrConnStatus != null">
+        instr_conn_status,
+      </if>
+      <if test="instrValid != null">
+        instr_valid,
+      </if>
+      <if test="instrCcId != null">
+        instr_cc_id,
+      </if>
+      <if test="instrCollectorId != null">
+        instr_collector_id,
+      </if>
+      <if test="instrRuntime != null">
+        instr_runtime,
+      </if>
+      <if test="instrRealRuntime != null">
+        instr_real_runtime,
+      </if>
+      <if test="instrUtilization != null">
+        instr_utilization,
+      </if>
+      <if test="instrOriginalValue != null">
+        instr_original_value,
+      </if>
+      <if test="instrNowValue != null">
+        instr_now_value,
+      </if>
+      <if test="instrDepreciation != null">
+        instr_depreciation,
+      </if>
+      <if test="instrExpireDate != null">
+        instr_expire_date,
+      </if>
+      <if test="instrCatg != null">
+        instr_catg,
+      </if>
+      <if test="instrRes != null">
+        instr_res,
+      </if>
+      <if test="instrAddress != null">
+        instr_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="instrId != null">
+        #{instrId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrName != null">
+        #{instrName,jdbcType=VARCHAR},
+      </if>
+      <if test="instrIp != null">
+        #{instrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="instrCreateDate != null">
+        #{instrCreateDate,jdbcType=DATE},
+      </if>
+      <if test="instrType != null">
+        #{instrType,jdbcType=VARCHAR},
+      </if>
+      <if test="instrManufacturer != null">
+        #{instrManufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="instrManufacturerId != null">
+        #{instrManufacturerId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrUser != null">
+        #{instrUser,jdbcType=VARCHAR},
+      </if>
+      <if test="instrDpt != null">
+        #{instrDpt,jdbcType=VARCHAR},
+      </if>
+      <if test="instrLeaseDate != null">
+        #{instrLeaseDate,jdbcType=DATE},
+      </if>
+      <if test="instrConnStatus != null">
+        #{instrConnStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="instrValid != null">
+        #{instrValid,jdbcType=TINYINT},
+      </if>
+      <if test="instrCcId != null">
+        #{instrCcId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrCollectorId != null">
+        #{instrCollectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrRuntime != null">
+        #{instrRuntime,jdbcType=VARCHAR},
+      </if>
+      <if test="instrRealRuntime != null">
+        #{instrRealRuntime,jdbcType=VARCHAR},
+      </if>
+      <if test="instrUtilization != null">
+        #{instrUtilization,jdbcType=VARCHAR},
+      </if>
+      <if test="instrOriginalValue != null">
+        #{instrOriginalValue,jdbcType=VARCHAR},
+      </if>
+      <if test="instrNowValue != null">
+        #{instrNowValue,jdbcType=VARCHAR},
+      </if>
+      <if test="instrDepreciation != null">
+        #{instrDepreciation,jdbcType=VARCHAR},
+      </if>
+      <if test="instrExpireDate != null">
+        #{instrExpireDate,jdbcType=DATE},
+      </if>
+      <if test="instrCatg != null">
+        #{instrCatg,jdbcType=VARCHAR},
+      </if>
+      <if test="instrRes != null">
+        #{instrRes,jdbcType=VARCHAR},
+      </if>
+      <if test="instrAddress != null">
+        #{instrAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.casic.yqgl.model.Instrument">
+    update instrument
+    <set>
+      <if test="instrId != null">
+        instr_id = #{instrId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrName != null">
+        instr_name = #{instrName,jdbcType=VARCHAR},
+      </if>
+      <if test="instrIp != null">
+        instr_ip = #{instrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="instrCreateDate != null">
+        instr_create_date = #{instrCreateDate,jdbcType=DATE},
+      </if>
+      <if test="instrType != null">
+        instr_type = #{instrType,jdbcType=VARCHAR},
+      </if>
+      <if test="instrManufacturer != null">
+        instr_manufacturer = #{instrManufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="instrManufacturerId != null">
+        instr_manufacturer_id = #{instrManufacturerId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrUser != null">
+        instr_user = #{instrUser,jdbcType=VARCHAR},
+      </if>
+      <if test="instrDpt != null">
+        instr_dpt = #{instrDpt,jdbcType=VARCHAR},
+      </if>
+      <if test="instrLeaseDate != null">
+        instr_lease_date = #{instrLeaseDate,jdbcType=DATE},
+      </if>
+      <if test="instrConnStatus != null">
+        instr_conn_status = #{instrConnStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="instrValid != null">
+        instr_valid = #{instrValid,jdbcType=TINYINT},
+      </if>
+      <if test="instrCcId != null">
+        instr_cc_id = #{instrCcId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrCollectorId != null">
+        instr_collector_id = #{instrCollectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="instrRuntime != null">
+        instr_runtime = #{instrRuntime,jdbcType=VARCHAR},
+      </if>
+      <if test="instrRealRuntime != null">
+        instr_real_runtime = #{instrRealRuntime,jdbcType=VARCHAR},
+      </if>
+      <if test="instrUtilization != null">
+        instr_utilization = #{instrUtilization,jdbcType=VARCHAR},
+      </if>
+      <if test="instrOriginalValue != null">
+        instr_original_value = #{instrOriginalValue,jdbcType=VARCHAR},
+      </if>
+      <if test="instrNowValue != null">
+        instr_now_value = #{instrNowValue,jdbcType=VARCHAR},
+      </if>
+      <if test="instrDepreciation != null">
+        instr_depreciation = #{instrDepreciation,jdbcType=VARCHAR},
+      </if>
+      <if test="instrExpireDate != null">
+        instr_expire_date = #{instrExpireDate,jdbcType=DATE},
+      </if>
+      <if test="instrCatg != null">
+        instr_catg = #{instrCatg,jdbcType=VARCHAR},
+      </if>
+      <if test="instrRes != null">
+        instr_res = #{instrRes,jdbcType=VARCHAR},
+      </if>
+      <if test="instrAddress != null">
+        instr_address = #{instrAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.casic.yqgl.model.Instrument">
+    update instrument
+    set instr_id = #{instrId,jdbcType=VARCHAR},
+      instr_name = #{instrName,jdbcType=VARCHAR},
+      instr_ip = #{instrIp,jdbcType=VARCHAR},
+      instr_create_date = #{instrCreateDate,jdbcType=DATE},
+      instr_type = #{instrType,jdbcType=VARCHAR},
+      instr_manufacturer = #{instrManufacturer,jdbcType=VARCHAR},
+      instr_manufacturer_id = #{instrManufacturerId,jdbcType=VARCHAR},
+      instr_user = #{instrUser,jdbcType=VARCHAR},
+      instr_dpt = #{instrDpt,jdbcType=VARCHAR},
+      instr_lease_date = #{instrLeaseDate,jdbcType=DATE},
+      instr_conn_status = #{instrConnStatus,jdbcType=VARCHAR},
+      instr_valid = #{instrValid,jdbcType=TINYINT},
+      instr_cc_id = #{instrCcId,jdbcType=VARCHAR},
+      instr_collector_id = #{instrCollectorId,jdbcType=VARCHAR},
+      instr_runtime = #{instrRuntime,jdbcType=VARCHAR},
+      instr_real_runtime = #{instrRealRuntime,jdbcType=VARCHAR},
+      instr_utilization = #{instrUtilization,jdbcType=VARCHAR},
+      instr_original_value = #{instrOriginalValue,jdbcType=VARCHAR},
+      instr_now_value = #{instrNowValue,jdbcType=VARCHAR},
+      instr_depreciation = #{instrDepreciation,jdbcType=VARCHAR},
+      instr_expire_date = #{instrExpireDate,jdbcType=DATE},
+      instr_catg = #{instrCatg,jdbcType=VARCHAR},
+      instr_res = #{instrRes,jdbcType=VARCHAR},
+      instr_address = #{instrAddress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
