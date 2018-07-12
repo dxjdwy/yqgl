@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.casic.yqgl.mapper.InstrumentMapper">
   <resultMap id="BaseResultMap" type="com.casic.yqgl.model.Instrument">
-    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="instr_id" jdbcType="VARCHAR" property="instrId" />
     <result column="instr_name" jdbcType="VARCHAR" property="instrName" />
     <result column="instr_ip" jdbcType="VARCHAR" property="instrIp" />
@@ -29,7 +28,7 @@
     <result column="instr_address" jdbcType="VARCHAR" property="instrAddress" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, instr_id, instr_name, instr_ip, instr_create_date, instr_type, instr_manufacturer, 
+    instr_id, instr_name, instr_ip, instr_create_date, instr_type, instr_manufacturer,
     instr_manufacturer_id, instr_user, instr_dpt, instr_lease_date, instr_conn_status, 
     instr_valid, instr_cc_id, instr_collector_id, instr_runtime, instr_real_runtime, 
     instr_utilization, instr_original_value, instr_now_value, instr_depreciation, instr_expire_date, 
@@ -46,16 +45,61 @@
   </select>
 
   <select id="getInstrListPage" resultMap="BaseResultMap">
-    SELECT * FROM instrument
+    SELECT * FROM instrument where 1=1
     <if test="instrName!=null and instrName !=''">
       AND instr_name LIKE CONCAT('%',#{instrName},'%')
     </if>
     <if test="instrId!=null and instrId !=''">
-      AND instr_id = #{instrId}
+      AND instr_id LIKE CONCAT('%',#{instrId},'%')
     </if>
     LIMIT #{offset},#{limit}
   </select>
 
+    <insert id="saveOrUpdate" parameterType="com.casic.yqgl.model.Instrument">
+    insert into instrument (instr_id, instr_name,
+      instr_ip, instr_create_date, instr_type,
+      instr_manufacturer, instr_manufacturer_id,
+      instr_user, instr_dpt, instr_lease_date,
+      instr_conn_status, instr_valid, instr_cc_id,
+      instr_collector_id, instr_runtime, instr_real_runtime,
+      instr_utilization, instr_original_value, instr_now_value,
+      instr_depreciation, instr_expire_date, instr_catg,
+      instr_res, instr_address)
+    values (#{instrId,jdbcType=VARCHAR}, #{instrName,jdbcType=VARCHAR},
+      #{instrIp,jdbcType=VARCHAR}, #{instrCreateDate,jdbcType=DATE}, #{instrType,jdbcType=VARCHAR},
+      #{instrManufacturer,jdbcType=VARCHAR}, #{instrManufacturerId,jdbcType=VARCHAR},
+      #{instrUser,jdbcType=VARCHAR}, #{instrDpt,jdbcType=VARCHAR}, #{instrLeaseDate,jdbcType=DATE},
+      #{instrConnStatus,jdbcType=VARCHAR}, #{instrValid,jdbcType=TINYINT}, #{instrCcId,jdbcType=VARCHAR},
+      #{instrCollectorId,jdbcType=VARCHAR}, #{instrRuntime,jdbcType=VARCHAR}, #{instrRealRuntime,jdbcType=VARCHAR},
+      #{instrUtilization,jdbcType=VARCHAR}, #{instrOriginalValue,jdbcType=VARCHAR}, #{instrNowValue,jdbcType=VARCHAR},
+      #{instrDepreciation,jdbcType=VARCHAR}, #{instrExpireDate,jdbcType=DATE}, #{instrCatg,jdbcType=VARCHAR},
+      #{instrRes,jdbcType=VARCHAR}, #{instrAddress,jdbcType=VARCHAR})
+      ON DUPLICATE KEY UPDATE
+
+          instr_name=values(instr_name),
+          instr_ip=values(instr_ip),
+          instr_create_date=values(instr_create_date),
+          instr_type=values(instr_type),
+          instr_manufacturer=values( instr_manufacturer),
+          instr_manufacturer_id=values(instr_manufacturer_id),
+          instr_user=values(instr_user),
+          instr_dpt=values(instr_dpt),
+          instr_lease_date=values(instr_lease_date),
+          instr_conn_status=values(instr_conn_status),
+          instr_valid=values(instr_valid),
+          instr_cc_id=values(instr_cc_id),
+          instr_collector_id=values(instr_collector_id),
+          instr_runtime=values(instr_runtime),
+          instr_real_runtime=values(instr_real_runtime),
+          instr_utilization=values(instr_utilization),
+          instr_original_value=values(instr_original_value),
+          instr_now_value=values(instr_now_value),
+          instr_depreciation=values(instr_depreciation),
+          instr_expire_date=values(instr_expire_date),
+          instr_catg=values( instr_catg),
+          instr_res=values( instr_res),
+          instr_address=values(instr_address)
+  </insert>
 
   <select id="getInstrList" resultMap="BaseResultMap">
     select
@@ -63,18 +107,18 @@
     from instrument
   </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from instrument
-    where id = #{id,jdbcType=INTEGER}
+    where instr_id = #{instrId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from instrument
-    where id = #{id,jdbcType=INTEGER}
+    where instr_id = #{instrId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.casic.yqgl.model.Instrument">
-    insert into instrument (id, instr_id, instr_name, 
+    insert into instrument (instr_id, instr_name,
       instr_ip, instr_create_date, instr_type, 
       instr_manufacturer, instr_manufacturer_id, 
       instr_user, instr_dpt, instr_lease_date, 
@@ -83,7 +127,7 @@
       instr_utilization, instr_original_value, instr_now_value, 
       instr_depreciation, instr_expire_date, instr_catg, 
       instr_res, instr_address)
-    values (#{id,jdbcType=INTEGER}, #{instrId,jdbcType=VARCHAR}, #{instrName,jdbcType=VARCHAR}, 
+    values (#{instrId,jdbcType=VARCHAR}, #{instrName,jdbcType=VARCHAR},
       #{instrIp,jdbcType=VARCHAR}, #{instrCreateDate,jdbcType=DATE}, #{instrType,jdbcType=VARCHAR}, 
       #{instrManufacturer,jdbcType=VARCHAR}, #{instrManufacturerId,jdbcType=VARCHAR}, 
       #{instrUser,jdbcType=VARCHAR}, #{instrDpt,jdbcType=VARCHAR}, #{instrLeaseDate,jdbcType=DATE}, 
@@ -96,9 +140,6 @@
   <insert id="insertSelective" parameterType="com.casic.yqgl.model.Instrument">
     insert into instrument
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="instrId != null">
         instr_id,
       </if>
@@ -173,9 +214,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="instrId != null">
         #{instrId,jdbcType=VARCHAR},
       </if>
@@ -253,9 +291,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.casic.yqgl.model.Instrument">
     update instrument
     <set>
-      <if test="instrId != null">
-        instr_id = #{instrId,jdbcType=VARCHAR},
-      </if>
       <if test="instrName != null">
         instr_name = #{instrName,jdbcType=VARCHAR},
       </if>
@@ -326,12 +361,11 @@
         instr_address = #{instrAddress,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where instr_id = #{instrId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.casic.yqgl.model.Instrument">
     update instrument
-    set instr_id = #{instrId,jdbcType=VARCHAR},
-      instr_name = #{instrName,jdbcType=VARCHAR},
+    set instr_name = #{instrName,jdbcType=VARCHAR},
       instr_ip = #{instrIp,jdbcType=VARCHAR},
       instr_create_date = #{instrCreateDate,jdbcType=DATE},
       instr_type = #{instrType,jdbcType=VARCHAR},
@@ -354,6 +388,6 @@
       instr_catg = #{instrCatg,jdbcType=VARCHAR},
       instr_res = #{instrRes,jdbcType=VARCHAR},
       instr_address = #{instrAddress,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where instr_id = #{instrId,jdbcType=VARCHAR}
   </update>
 </mapper>

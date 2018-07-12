@@ -1,17 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
     <!--meta tags-->
-
     <meta charset="UTF-8">
     <meta name="description" content="Services Listing HTML5 CSS3 template">
     <meta name="keywords" content="HTML,CSS,XML,JavaScript, services, listing">
     <meta name="author" content="Ui-DesignLab">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!--end meta tags-->
-
     <title>Dashboard</title>
     <!--stylesheets-->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -44,10 +40,9 @@
         </ul>
         <i class="nav-toggle fa fa-bars"></i>
     </nav>
-
 <!--end banner-->
 
-<!--our services-->
+<!--myModal-->
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -93,7 +88,10 @@
         </div>
     </div>
 </div>
+<!--end myModal-->
+
     <div class="container">
+
         <h1 align="center">集中器列表</h1>
 
         <div id="toolbar" class="btn-group">
@@ -106,7 +104,6 @@
         </div>
         <table id="tb_collector"></table>
     </div>
-<!--end our services-->
 
 <!--page loader-->
 <div class="page-loader">
@@ -114,11 +111,8 @@
 </div>
 <!--end page loader-->
 
-
 <div class="bottom-strip">
     <div class="cards-accepted">
-        <!--<em>Cards Accepted:</em>-->
-        <!--<img src="img/card-logos.png" alt="">-->
     </div>
     <div class="copyright"><i class="fa fa-copyright"></i> <span>Copyright &copy; 2018. 航天科工二院二十三所  All rights reserved.</span></div>
     <div class="country"></div>
@@ -151,11 +145,9 @@
         //1.初始化Table
         var oTable = new TableInit();
         oTable.Init();
-
         //2.初始化Button的点击事件
         var oButtonInit = new ButtonInit();
         oButtonInit.Init();
-
          });
 
     var TableInit = function () {
@@ -163,7 +155,6 @@
         //初始化Table
         oTableInit.Init = function () {
             $('#tb_collector').bootstrapTable({
-
                 url: 'getCollectorListPage',         //请求后台的URL（*）
                 method: 'post',                      //请求方式（*）
                 contentType:"application/x-www-form-urlencoded",
@@ -178,14 +169,14 @@
                 pageNumber:1,                       //初始化加载第一页，默认第一页
                 pageSize: 25,                       //每页的记录行数（*）
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-                strictSearch: true,
+                search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: false,
                 showColumns: true,                  //是否显示所有的列
                 showRefresh: true,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,                //是否启用点击选中行
               //  height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                uniqueId: "collectorId",                     //每一行的唯一标识，一般为主键列
                 showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                   //是否显示父子表
@@ -242,16 +233,16 @@
             return value == 1 ? "在线" : "离线";
 
         }
+
         //操作栏的格式化
         function actionFormatter(value, row, index) {
             var id = value;
             var result = "";
+
             result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
             result += "<a href='javascript:;' class='btn btn-xs red'  onclick=\"DeleteById('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
-
             return result;
         }
-
 
         //得到查询的参数
         oTableInit.queryParams = function (params) {
@@ -263,7 +254,6 @@
         };
         return oTableInit;
     };
-
 
     var ButtonInit = function () {
         var oInit = new Object();
@@ -302,11 +292,11 @@
                             toastr.error('添加失败');
                         },
                         complete: function () {
-
+                            $('#txt_collector_id').val('');
                         }
-
                     });
                 }
+                else {
 
                     $.ajax({
                         type: "post",
@@ -331,20 +321,17 @@
                             toastr.error('添加失败');
                         },
                         complete: function () {
-
                         }
-
                     });
-
-
+                }
             });
         };
-
         return oInit;
     };
-    function EditViewById(id) {
 
-        var row = $('#tb_collector').bootstrapTable('getRowByUniqueId', id);
+    function EditViewById(id) {
+        var $table = $('#tb_collector');
+        var row = $table.bootstrapTable('getRowByUniqueId', id);
         $('#txt_collector_name').val(row.collectorName);
         $('#txt_collector_address').val(row.collectorAddress);
         $('#txt_collector_ip').val(row.collectorIp);
@@ -352,10 +339,9 @@
         $('#txt_collector_gateway').val(row.collectorGateway);
         $('#txt_collector_port').val(row.collectorPort);
         $('#txt_collector_status').val(row.collectorStatus);
-
         $('#txt_collector_id').val(row.collectorId);
         $("#myModalLabel").text("编辑");
-        $('#myModal').modal("toggle");
+        $('#myModal').modal();
     }
 
     function DeleteById(id){

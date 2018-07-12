@@ -19,6 +19,26 @@ public class InstrServiceImpl implements InstrService {
     }
 
     @Override
+    public Integer insert(Instrument instrument) {
+        return instrumentMapper.insert(instrument);
+    }
+
+    @Override
+    public Integer delete(String instrId) {
+        return instrumentMapper.deleteByPrimaryKey(instrId);
+    }
+
+    @Override
+    public Integer saveOrUpdate(Instrument instrument) {
+        return instrumentMapper.saveOrUpdate(instrument);
+    }
+
+    @Override
+    public Integer update(Instrument instrument) {
+        return instrumentMapper.updateByPrimaryKeySelective(instrument);
+    }
+
+    @Override
     public List<Instrument> getInstrListPage(Instrument instrument) {
         return instrumentMapper.getInstrListPage(instrument);
     }

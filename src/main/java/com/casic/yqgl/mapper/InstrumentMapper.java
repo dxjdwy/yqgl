@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface InstrumentMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(Instrument record);
 
@@ -21,6 +21,8 @@ public interface InstrumentMapper {
     List<Instrument> getInstrList();
 
     List<Instrument> getInstrListPage(Instrument instrument);
+
+    int saveOrUpdate(Instrument instrument);
 
     int getTotal();
 }

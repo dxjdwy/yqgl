@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="vendor/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="vendor/perfect-scrollbar/css/perfect-scrollbar.min.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/toastr.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
     <!--end stylesheets-->
 
     <!--google fonts-->
@@ -46,11 +48,105 @@
     </nav>
 
 <!--end banner-->
+<!--myModal-->
+<form>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
 
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txt_instrName">设备编号</label>
+                    <input type="text" name="txt_instrId" class="form-control" id="txt_instrId" placeholder="设备编号">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrName">名称</label>
+                    <input type="text" name="txt_instrName" class="form-control" id="txt_instrName" placeholder="名称">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrIp">IP</label>
+                    <input type="text" name="txt_instrIp" class="form-control" id="txt_instrIp" placeholder="IP">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrCreateDate">创建日期</label>
+                    <!--<input type="text" name="txt_instrCreateDate" class="form-control" id="txt_instrCreateDate" placeholder="创建日期">-->
+
+                    <div class="input-group">
+                        <input type="text" id="txt_instrCreateDate" name="txt_instrCreateDate" class="form-control form_datetime">
+                        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrType">类型</label>
+                    <input type="text" name="txt_instrType" class="form-control" id="txt_instrType" placeholder="类型">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrManufacturer">生产厂家</label>
+                    <input type="text" name="txt_instrManufacturer" class="form-control" id="txt_instrManufacturer" placeholder="生产厂家">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrAddress">位置</label>
+                    <input type="text" name="txt_instrAddress" class="form-control" id="txt_instrAddress" placeholder="位置">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrUser">借用人</label>
+                    <input type="text" name="txt_instrUser" class="form-control" id="txt_instrUser" placeholder="借用人">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrDpt">借用单位</label>
+                    <input type="text" name="txt_instrDpt" class="form-control" id="txt_instrDpt" placeholder="借用单位">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrLeaseDate">借出日期</label>
+                    <!--<input type="text" name="txt_instrLeaseDate" class="form-control" id="txt_instrLeaseDate" placeholder="借出日期">-->
+                    <div class="input-group">
+                        <input type="text" id="txt_instrLeaseDate" name="txt_instrLeaseDate" class="form-control form_datetime">
+                        <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrCcId">云网ID</label>
+                    <input type="text" name="txt_instrCcId" class="form-control" id="txt_instrCcId" placeholder="云网ID">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrOriginalValue">原值</label>
+                    <input type="text" name="txt_instrOriginalValue" class="form-control" id="txt_instrOriginalValue" placeholder="原值">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrNowValue">净值</label>
+                    <input type="text" name="txt_instrNowValue" class="form-control" id="txt_instrNowValue" placeholder="净值">
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrExpireDate">到期</label>
+                    <!--<input type="text" name="txt_instrExpireDate" class="form-control" id="txt_instrExpireDate" placeholder="到期">-->
+                    <div class="input-group">
+                        <input type="text" id="txt_instrExpireDate" name="txt_instrExpireDate" class="form-control form_datetime">
+                        <span class="input-group-addon" id="basic-addon4"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txt_instrValid">启用</label>
+                    <input type="text" name="txt_instrValid" class="form-control" id="txt_instrValid" placeholder="是/否">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!--end myModal-->
 <!--our services-->
 
 
-        <!--<h1 align="center">设备列表</h1>-->
+        <h1 align="center">设备列表</h1>
 
         <div class="panel panel-default">
             <div class="panel-heading">查询条件</div>
@@ -85,15 +181,8 @@
             <button id="btn_add" type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
             </button>
-            <button id="btn_edit" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
-            </button>
-            <button id="btn_delete" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-            </button>
         </div>
         <table id="tb_instr"></table>
-
 <!--end our services-->
 
 <!--page loader-->
@@ -102,11 +191,9 @@
 </div>
 <!--end page loader-->
 
-
 <div class="bottom-strip">
     <div class="cards-accepted">
-        <!--<em>Cards Accepted:</em>-->
-        <!--<img src="img/card-logos.png" alt="">-->
+
     </div>
     <div class="copyright"><i class="fa fa-copyright"></i> <span>Copyright &copy; 2018. 航天科工二院二十三所  All rights reserved.</span></div>
     <div class="country"></div>
@@ -126,31 +213,16 @@
 <script src="vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
 <script src="vendor/js/typed.js"></script>
 <script src="js/app.js"></script>
-
+<script src="js/toastr.min.js"></script>
 <script src="js/bootstrap-table.js"></script>
 <script src="js/bootstrap-table-sticky-header.js"></script>
 <script src="js/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
 <!--end scripts-->
 
 </body>
 <script>
-
-    // var $table = $('#table');
-    // // your custom ajax request here
-    // function ajaxRequest(params) {
-    //     // just use setTimeout
-    //     setTimeout(function () {
-    //         params.success({
-    //             total: 100,
-    //             rows: [{
-    //                 "id": 0,
-    //                 "instrName": "Item 0",
-    //                 "instrId": "$0"
-    //             }]
-    //         });
-    //     }, 1000);
-    // }
-
+    toastr.options.positionClass = 'toast-center-center';
     selections = [];
     stickyHeaderOffsetY = 0;
     $(function () {
@@ -184,15 +256,15 @@
                 pageNumber:1,                       //初始化加载第一页，默认第一页
                 pageSize: 25,                       //每页的记录行数（*）
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-                strictSearch: true,
+                search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: false,
                 showColumns: true,                  //是否显示所有的列
                 showRefresh: true,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,                //是否启用点击选中行
               //  height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
-                showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+                uniqueId: "instrId",                     //每一行的唯一标识，一般为主键列
+                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                   //是否显示父子表
                 stickyHeader:true,
@@ -203,6 +275,9 @@
                     field: 'id',
                     title: '序号',
                     align: 'center',
+                    formatter: function (value, row, index) {
+                        return index+1;
+                    }
                 }, {
                     field: 'instrId',
                     title: '设备编号',
@@ -216,12 +291,62 @@
                     title: '设备类型',
                     align: 'center',
                 },{
+                    field: 'instrIp',
+                    title: 'IP',
+                    align: 'center',
+                },{
+                    field: 'instrCreateDate',
+                    title: '创建日期',
+                    align: 'center',
+                },{
+                    field: 'instrManufacturer',
+                    title: '生产厂家',
+                    align: 'center',
+                },{
+                    field: 'instrAddress',
+                    title: '位置',
+                    align: 'center',
+                },{
+                    field: 'instrUser',
+                    title: '借用人',
+                    align: 'center',
+                },{
+                    field: 'instrDpt',
+                    title: '借用单位',
+                    align: 'center',
+                },{
+                    field: 'instrLeaseDate',
+                    title: '借出日期',
+                    align: 'center',
+                },{
+                    field: 'instrCcId',
+                    title: '云网ID',
+                    align: 'center',
+                },{
+                    field: 'instrOriginalValue',
+                    title: '原值',
+                    align: 'center',
+                },{
+                    field: 'instrNowValue',
+                    title: '净值',
+                    align: 'center',
+                },{
+                    field: 'instrExpireDate',
+                    title: '到期',
+                    align: 'center',
+                },{
                     field: 'instrConnStatus',
                     title: '在线情况',
                     align: 'center',
                     formatter:formatterInstrConnStatus,
+                },{
+                    field:'collectorId',
+                    title: '操作',
+                    width: 120,
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: actionFormatter
                 },
-
                 ]
             });
         };
@@ -230,7 +355,15 @@
             return value == 1 ? "在线" : "离线";
 
         }
+        //操作栏的格式化
+        function actionFormatter(value, row, index) {
+            var id = value;
+            var result = "";
 
+            result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + row.instrId + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+            result += "<a href='javascript:;' class='btn btn-xs red'  onclick=\"DeleteById('" + row.instrId + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+            return result;
+        }
 
         //得到查询的参数
         oTableInit.queryParams = function (params) {
@@ -254,11 +387,270 @@
 
         oInit.Init = function () {
             //初始化页面上面的按钮事件
-        };
+            // 日历
+            $('.form_datetime').datetimepicker({
+                minView: "month", //选择日期后，不会再跳转去选择时分秒
+                format: 'yyyy-mm-dd',
+                todayBtn:  1,
+                autoclose: 1,
+            });
 
+            $("#btn_query").click(function () {
+
+                $("#tb_instr").bootstrapTable('refresh');
+            });
+
+            $("#btn_add").click(function () {
+                $("#myModalLabel").text("新增");
+                $('#myModal').modal();
+
+            });
+
+        $("#btn_submit").click(function () {
+                $.ajax({
+                    type: "post",
+                    url: "instr/saveOrUpdate",
+                    contentType:"application/x-www-form-urlencoded",
+                    data: {
+                        instrId:$('#txt_instrId').val(),
+                        instrName: $("#txt_instrName").val(),
+                        instrType: $("#txt_instrType").val(),
+                        instrIp:$("#txt_instrIp").val(),
+                        instrCreateDate:$("#txt_instrCreateDate").val(),
+                        instrManufacturer:$("#txt_instrManufacturer").val(),
+                        instrAddress:$("#txt_instrAddress").val(),
+                        instrUser:$("#txt_instrUser").val(),
+                        instrDpt:$("#txt_instrDpt").val(),
+                        instrLeaseDate:$("#txt_instrLeaseDate").val(),
+                        instrCcId:$("#txt_instrCcId").val(),
+                        instrOriginalValue:$("#txt_instrOriginalValue").val(),
+                        instrNowValue:$("#txt_instrNowValue").val(),
+                        instrExpireDate:$("#txt_instrExpireDate").val(),
+                        instrValid:$("#txt_instrValid").val(),
+
+                    },
+                    success: function (data, status) {
+                        if (status == "success") {
+                            toastr.success('添加成功');
+                            $("#tb_instr").bootstrapTable('refresh');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('添加失败');
+                    },
+                    complete: function () {
+
+                    }
+                });
+
+
+        });
+        };
         return oInit;
     };
+    function EditViewById(id) {
+        var $table = $('#tb_instr');
+        var row = $table.bootstrapTable('getRowByUniqueId', id);
+            $('#txt_instrId').val(row.instrId);
+            $("#txt_instrName").val(row.instrName);
+            $("#txt_instrType").val(row.instrType);
+            $("#txt_instrIp").val(row.instrIp);
+            $("#txt_instrCreateDate").val(row.instrCreateDate);
+            $("#txt_instrManufacturer").val(row.instrManufacturer);
+            $("#txt_instrAddress").val(row.instrAddress);
+            $("#txt_instrUser").val(row.instrUser);
+            $("#txt_instrDpt").val(row.instrDpt);
+            $("#txt_instrLeaseDate").val(row.instrLeaseDate);
+            $("#txt_instrCcId").val(row.instrCcId);
+            $("#txt_instrOriginalValue").val(row.instrOriginalValue);
+            $("#txt_instrNowValue").val(row.instrNowValue);
+            $("#txt_instrExpireDate").val(row.instrExpireDate);
+            $("#txt_instrValid").val(row.instrValid);
 
+        $("#myModalLabel").text("编辑");
+        $('#myModal').modal();
+    }
+
+    function DeleteById(id){
+        Ewin.confirm({ message: "确认要删除选择的设备吗？" }).on(function (e) {
+            if (!e) {
+                return;
+            }
+            $.ajax({
+                type: "post",
+                url: "instr/delete",
+                data: {"instrId":id},
+                success: function (data, status) {
+                    if (status == "success") {
+                        toastr.success('删除成功');
+                        $("#tb_instr").bootstrapTable('refresh');
+                    }
+                },
+                error: function () {
+                    toastr.error('Error');
+                },
+                complete: function () {
+
+                }
+
+            });
+        });
+    }
+
+    //组件封装
+    (function ($) {
+
+        window.Ewin = function () {
+            var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+                '<div class="modal-dialog modal-sm">' +
+                '<div class="modal-content">' +
+                '<div class="modal-header">' +
+                '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+                '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+                '</div>' +
+                '<div class="modal-body">' +
+                '<p>[Message]</p>' +
+                '</div>' +
+                '<div class="modal-footer">' +
+                '<button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>' +
+                '<button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
+
+            var dialogdHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+                '<div class="modal-dialog">' +
+                '<div class="modal-content">' +
+                '<div class="modal-header">' +
+                '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+                '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+                '</div>' +
+                '<div class="modal-body">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+            var generateId = function () {
+                var date = new Date();
+                return 'mdl' + date.valueOf();
+            }
+            var init = function (options) {
+                options = $.extend({}, {
+                    title: "操作提示",
+                    message: "提示内容",
+                    btnok: "确定",
+                    btncl: "取消",
+                    width: 200,
+                    auto: false
+                }, options || {});
+                var modalId = generateId();
+                var content = html.replace(reg, function (node, key) {
+                    return {
+                        Id: modalId,
+                        Title: options.title,
+                        Message: options.message,
+                        BtnOk: options.btnok,
+                        BtnCancel: options.btncl
+                    }[key];
+                });
+                $('body').append(content);
+                $('#' + modalId).modal({
+                    width: options.width,
+                    backdrop: 'static'
+                });
+                $('#' + modalId).on('hide.bs.modal', function (e) {
+                    $('body').find('#' + modalId).remove();
+                });
+                return modalId;
+            }
+
+            return {
+                alert: function (options) {
+                    if (typeof options == 'string') {
+                        options = {
+                            message: options
+                        };
+                    }
+                    var id = init(options);
+                    var modal = $('#' + id);
+                    modal.find('.ok').removeClass('btn-success').addClass('btn-primary');
+                    modal.find('.cancel').hide();
+
+                    return {
+                        id: id,
+                        on: function (callback) {
+                            if (callback && callback instanceof Function) {
+                                modal.find('.ok').click(function () { callback(true); });
+                            }
+                        },
+                        hide: function (callback) {
+                            if (callback && callback instanceof Function) {
+                                modal.on('hide.bs.modal', function (e) {
+                                    callback(e);
+                                });
+                            }
+                        }
+                    };
+                },
+                confirm: function (options) {
+                    var id = init(options);
+                    var modal = $('#' + id);
+                    modal.find('.ok').removeClass('btn-primary').addClass('btn-success');
+                    modal.find('.cancel').show();
+                    return {
+                        id: id,
+                        on: function (callback) {
+                            if (callback && callback instanceof Function) {
+                                modal.find('.ok').click(function () { callback(true); });
+                                modal.find('.cancel').click(function () { callback(false); });
+                            }
+                        },
+                        hide: function (callback) {
+                            if (callback && callback instanceof Function) {
+                                modal.on('hide.bs.modal', function (e) {
+                                    callback(e);
+                                });
+                            }
+                        }
+                    };
+                },
+                dialog: function (options) {
+                    options = $.extend({}, {
+                        title: 'title',
+                        url: '',
+                        width: 800,
+                        height: 550,
+                        onReady: function () { },
+                        onShown: function (e) { }
+                    }, options || {});
+                    var modalId = generateId();
+
+                    var content = dialogdHtml.replace(reg, function (node, key) {
+                        return {
+                            Id: modalId,
+                            Title: options.title
+                        }[key];
+                    });
+                    $('body').append(content);
+                    var target = $('#' + modalId);
+                    target.find('.modal-body').load(options.url);
+                    if (options.onReady())
+                        options.onReady.call(target);
+                    target.modal();
+                    target.on('shown.bs.modal', function (e) {
+                        if (options.onReady(e))
+                            options.onReady.call(target, e);
+                    });
+                    target.on('hide.bs.modal', function (e) {
+                        $('body').find(target).remove();
+                    });
+                }
+            }
+        }();
+    })(jQuery);
 </script>
 </html>
 

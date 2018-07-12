@@ -6,6 +6,7 @@ import com.casic.yqgl.service.CollectorService;
 import com.casic.yqgl.uitls.PageHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -80,6 +81,7 @@ public class collectorController implements ApplicationRunner {
         Integer res = collectorService.update(collector);
         if (res == 1){
             model.addAttribute("status","success");
+            //TODO   setCollector
             return "collector";
         }
         model.addAttribute("status","error");
@@ -108,7 +110,7 @@ public class collectorController implements ApplicationRunner {
                     e.printStackTrace();
                 }
                 byte[] data = packet.getData();
-
+                //TODO  解析数据
 
             }
 
@@ -132,7 +134,7 @@ public class collectorController implements ApplicationRunner {
             e.printStackTrace();
         }
         byte[] headBytes =  new byte[]{0x52,0x15,0x50};
-
+        //TODO  setCollector
 
         if(setCollectorSocket!=null){
             setCollectorSocket.close();

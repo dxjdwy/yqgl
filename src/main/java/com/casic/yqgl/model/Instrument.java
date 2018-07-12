@@ -3,7 +3,6 @@ package com.casic.yqgl.model;
 import java.util.Date;
 
 public class Instrument extends Page{
-    private Integer id;
 
     private String instrId;
 
@@ -52,14 +51,6 @@ public class Instrument extends Page{
     private String instrRes;
 
     private String instrAddress;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getInstrId() {
         return instrId;
