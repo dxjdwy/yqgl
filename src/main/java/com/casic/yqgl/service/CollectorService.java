@@ -11,5 +11,7 @@ public interface CollectorService {
 
     Integer delete(Integer collectorId);
 
+    Integer update(Collector collector);
+
     Integer getTotal();
 }

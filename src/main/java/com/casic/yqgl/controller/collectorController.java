@@ -75,6 +75,16 @@ public class collectorController implements ApplicationRunner {
         model.addAttribute("status","error");
         return "collector";
     }
+    @RequestMapping("collector/update")
+    public @ResponseBody String collectorUpdate(@ModelAttribute Collector collector, Model model){
+        Integer res = collectorService.update(collector);
+        if (res == 1){
+            model.addAttribute("status","success");
+            return "collector";
+        }
+        model.addAttribute("status","error");
+        return "collector";
+    }
     /**
      * 接受融合数据
      */

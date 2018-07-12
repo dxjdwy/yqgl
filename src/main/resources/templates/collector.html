@@ -56,7 +56,7 @@
                 <h4 class="modal-title" id="myModalLabel">新增</h4>
             </div>
             <div class="modal-body">
-
+                <input type="text" style="display: none" name="txt_collector_id" id="txt_collector_id">
                 <div class="form-group">
                     <label for="txt_collector_name">名称</label>
                     <input type="text" name="txt_collector_name" class="form-control" id="txt_collector_name" placeholder="名称">
@@ -246,7 +246,7 @@
         function actionFormatter(value, row, index) {
             var id = value;
             var result = "";
-            result += "<a href='javascript:;' class='btn btn-xs blue'  data-toggle='modal'  onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+            result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
             result += "<a href='javascript:;' class='btn btn-xs red'  onclick=\"DeleteById('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
 
             return result;
@@ -276,11 +276,14 @@
                 $('#myModal').modal();
             });
             $("#btn_submit").click(function () {
-                $.ajax({
-                    type: "post",
-                    url: "collector/insert",
-                    contentType:"application/x-www-form-urlencoded",
-                    data: {
+
+                if($('#txt_collector_id').val() != ''){
+                    $.ajax({
+                        type: "post",
+                        url: "collector/update",
+                        contentType:"application/x-www-form-urlencoded",
+                        data: {
+                            collectorId:$('#txt_collector_id').val(),
                             collectorName: $("#txt_collector_name").val(),
                             collectorIp: $("#txt_collector_ip").val(),
                             collectorAddress:$("#txt_collector_address").val(),
@@ -288,21 +291,52 @@
                             collectorPort:$("#txt_collector_port").val(),
                             collectorGateway:$("#txt_collector_gateway").val(),
                             collectorMask:$("#txt_collector_mask").val()
-                    },
-                    success: function (data, status) {
-                        if (status == "success") {
-                            toastr.success('添加成功');
-                            $("#tb_collector").bootstrapTable('refresh');
+                        },
+                        success: function (data, status) {
+                            if (status == "success") {
+                                toastr.success('添加成功');
+                                $("#tb_collector").bootstrapTable('refresh');
+                            }
+                        },
+                        error: function () {
+                            toastr.error('添加失败');
+                        },
+                        complete: function () {
+
                         }
-                    },
-                    error: function () {
-                        toastr.error('添加失败');
-                    },
-                    complete: function () {
 
-                    }
+                    });
+                }
 
-                });
+                    $.ajax({
+                        type: "post",
+                        url: "collector/insert",
+                        contentType:"application/x-www-form-urlencoded",
+                        data: {
+                            collectorName: $("#txt_collector_name").val(),
+                            collectorIp: $("#txt_collector_ip").val(),
+                            collectorAddress:$("#txt_collector_address").val(),
+                            collectorStatus:$("#txt_collector_status").val(),
+                            collectorPort:$("#txt_collector_port").val(),
+                            collectorGateway:$("#txt_collector_gateway").val(),
+                            collectorMask:$("#txt_collector_mask").val()
+                        },
+                        success: function (data, status) {
+                            if (status == "success") {
+                                toastr.success('添加成功');
+                                $("#tb_collector").bootstrapTable('refresh');
+                            }
+                        },
+                        error: function () {
+                            toastr.error('添加失败');
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+
+
             });
         };
 
@@ -310,8 +344,16 @@
     };
     function EditViewById(id) {
 
-      //  var name = document.getElementById("tb_collector").rows[id].cells[1].innerText;
+        var row = $('#tb_collector').bootstrapTable('getRowByUniqueId', id);
+        $('#txt_collector_name').val(row.collectorName);
+        $('#txt_collector_address').val(row.collectorAddress);
+        $('#txt_collector_ip').val(row.collectorIp);
+        $('#txt_collector_mask').val(row.collectorMask);
+        $('#txt_collector_gateway').val(row.collectorGateway);
+        $('#txt_collector_port').val(row.collectorPort);
+        $('#txt_collector_status').val(row.collectorStatus);
 
+        $('#txt_collector_id').val(row.collectorId);
         $("#myModalLabel").text("编辑");
         $('#myModal').modal("toggle");
     }

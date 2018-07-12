@@ -17,6 +17,11 @@ public class CollectorServiceImpl implements CollectorService {
     }
 
     @Override
+    public Integer update(Collector collector) {
+        return  collectorMapper.updateByPrimaryKeySelective(collector);
+    }
+
+    @Override
     public Integer delete(Integer collectorId) {
         return collectorMapper.deleteByPrimaryKey(collectorId);
     }
