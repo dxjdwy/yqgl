@@ -4,17 +4,22 @@ import com.casic.yqgl.model.Collector;
 import com.casic.yqgl.model.Instrument;
 import com.casic.yqgl.service.CollectorService;
 import com.casic.yqgl.uitls.PageHelper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -48,6 +53,27 @@ public class collectorController implements ApplicationRunner {
         pageHelper.setRows(collectorListPage);
 
         return pageHelper;
+    }
+
+    @RequestMapping("collector/delete")
+    public String collectorDelete(Integer collectorId,Model model) throws IOException {
+        Integer res = collectorService.delete(collectorId);
+        if (res == 1){
+            model.addAttribute("status","success");
+            return "collector";
+        }
+        model.addAttribute("status","error");
+        return "collector";
+    }
+    @RequestMapping("collector/insert")
+    public @ResponseBody String collectorInsert(@ModelAttribute Collector collector, Model model){
+        Integer res = collectorService.insert(collector);
+        if (res == 1){
+            model.addAttribute("status","success");
+            return "collector";
+        }
+        model.addAttribute("status","error");
+        return "collector";
     }
     /**
      * 接受融合数据

@@ -9,5 +9,6 @@ public interface InstrService {
 
     public List<Instrument> getInstrListPage(Instrument instrument);
 
+
     Integer getTotal();
 }
