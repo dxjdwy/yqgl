@@ -14,7 +14,7 @@
 
     <title>Dashboard</title>
     <!--stylesheets-->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-table.css">
     <link rel="stylesheet" href="css/bootstrap-table-sticky-header.css">
     <link rel="stylesheet" href="vendor/css/animate.min.css">
@@ -426,12 +426,12 @@
         oInit.Init = function () {
             //初始化页面上面的按钮事件
             // 日历
-            // $('.form_datetime').datetimepicker({
-            //     minView: "month", //选择日期后，不会再跳转去选择时分秒
-            //     format: 'yyyy-mm-dd',
-            //     todayBtn:  1,
-            //     autoclose: 1,
-            // });
+            $('.form_datetime').datetimepicker({
+                minView: "month", //选择日期后，不会再跳转去选择时分秒
+                format: 'yyyy-mm-dd',
+                todayBtn:  1,
+                autoclose: 1,
+            });
 
             $("#btn_query").click(function () {
 
