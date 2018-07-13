@@ -10,7 +10,7 @@
     <!--end meta tags-->
     <title>Dashboard</title>
     <!--stylesheets-->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-table.css">
     <link rel="stylesheet" href="vendor/css/animate.min.css">
     <link rel="stylesheet" href="vendor/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -162,7 +162,7 @@
                 striped: true,                      //是否显示行间隔色
                 cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
                 pagination: true,                   //是否显示分页（*）
-                sortable: false,                     //是否启用排序
+                sortable: true,                     //是否启用排序
                 sortOrder: "asc",                   //排序方式
                 queryParams: oTableInit.queryParams,//传递参数（*）
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
@@ -194,6 +194,8 @@
                     field: 'collectorAddress',
                     title: '位置',
                     align: 'center',
+                    sortName:'collector_address',
+                    sortable:true,
                 }, {
                     field: 'collectorIp',
                     title: 'IP',
@@ -249,7 +251,10 @@
             var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                 limit: params.limit,   //页面大小
                 offset: params.offset,  //页码
+                sortName:params.sort,
+                sortOrder:this.sortOrder,
             };
+
             return temp;
         };
         return oTableInit;
