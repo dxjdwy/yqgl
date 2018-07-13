@@ -22,7 +22,11 @@
 
     <select id="getCollectorListPage" resultMap="BaseResultMap">
         SELECT * FROM collector
+      <if test="sortName != null and sortName != '' and sortOrder !=null and sortOrder != ''">
+        order by ${sortName} ${sortOrder}
+      </if>
         LIMIT #{offset},#{limit}
+
     </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

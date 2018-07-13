@@ -52,6 +52,10 @@
     <if test="instrId!=null and instrId !=''">
       AND instr_id LIKE CONCAT('%',#{instrId},'%')
     </if>
+
+    <if test="sortName != null and sortName != '' and sortOrder !=null and sortOrder != ''">
+      order by ${sortName} ${sortOrder}
+    </if>
     LIMIT #{offset},#{limit}
   </select>
 
