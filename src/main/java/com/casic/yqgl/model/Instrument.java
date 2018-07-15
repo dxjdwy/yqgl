@@ -30,7 +30,7 @@ public class Instrument extends Page{
 
     private String instrCcId;
 
-    private String instrCollectorId;
+    private Integer instrCollectorId;
 
     private String instrRuntime;
 
@@ -156,11 +156,11 @@ public class Instrument extends Page{
         this.instrCcId = instrCcId;
     }
 
-    public String getInstrCollectorId() {
+    public Integer getInstrCollectorId() {
         return instrCollectorId;
     }
 
-    public void setInstrCollectorId(String instrCollectorId) {
+    public void setInstrCollectorId(Integer instrCollectorId) {
         this.instrCollectorId = instrCollectorId;
     }
 

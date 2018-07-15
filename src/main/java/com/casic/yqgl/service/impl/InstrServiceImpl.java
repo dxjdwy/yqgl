@@ -29,6 +29,11 @@ public class InstrServiceImpl implements InstrService {
     }
 
     @Override
+    public Instrument getByinstrId(String instrId) {
+        return instrumentMapper.selectByPrimaryKey(instrId);
+    }
+
+    @Override
     public Integer saveOrUpdate(Instrument instrument) {
         return instrumentMapper.saveOrUpdate(instrument);
     }

@@ -2,6 +2,9 @@ package com.casic.yqgl.mapper;
 
 import com.casic.yqgl.model.Event;
 
+import java.util.Date;
+import java.util.Map;
+
 public interface EventMapper {
     int deleteByPrimaryKey(Integer eventId);
 
@@ -16,4 +19,21 @@ public interface EventMapper {
     int updateByPrimaryKey(Event record);
 
     int saveOrUpdate(Event event);
+
+    int getTimeById(Integer collectorId);
+
+    /**
+     *
+     * @param map  collectorId   day
+     * @return
+     */
+    int getTimeByIdAndDay(Map map);
+
+    /**
+     *
+     * @param map  collectorId   month
+     * @return
+     */
+    int getTimeByIdAndMonth(Map map);
+
 }

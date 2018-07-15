@@ -15,7 +15,7 @@
     <result column="instr_conn_status" jdbcType="VARCHAR" property="instrConnStatus" />
     <result column="instr_valid" jdbcType="TINYINT" property="instrValid" />
     <result column="instr_cc_id" jdbcType="VARCHAR" property="instrCcId" />
-    <result column="instr_collector_id" jdbcType="VARCHAR" property="instrCollectorId" />
+    <result column="instr_collector_id" jdbcType="INTEGER" property="instrCollectorId" />
     <result column="instr_runtime" jdbcType="VARCHAR" property="instrRuntime" />
     <result column="instr_real_runtime" jdbcType="VARCHAR" property="instrRealRuntime" />
     <result column="instr_utilization" jdbcType="VARCHAR" property="instrUtilization" />
@@ -35,12 +35,21 @@
     instr_catg, instr_res, instr_address
   </sql>
   <select id="getTotal" resultType="int">
-    SELECT count(1) FROM instrument
+    SELECT count(1) FROM instrument WHERE 1=1
     <if test="instrName!=null and instrName !=''">
       AND instr_name LIKE CONCAT('%',#{instrName},'%')
     </if>
     <if test="instrId!=null and instrId !=''">
       AND instr_id = #{instrId}
+    </if>
+    <if test="instrType!=null and instrType !=''">
+      AND instr_type LIKE CONCAT('%',#{instrType},'%')
+    </if>
+    <if test="instrUser!=null and instrUser !=''">
+      AND instr_user LIKE CONCAT('%',#{instrUser},'%')
+    </if>
+    <if test="instrDpt!=null and instrDpt !=''">
+      AND instr_dpt LIKE CONCAT('%',#{instrDpt},'%')
     </if>
   </select>
 
@@ -51,6 +60,15 @@
     </if>
     <if test="instrId!=null and instrId !=''">
       AND instr_id LIKE CONCAT('%',#{instrId},'%')
+    </if>
+    <if test="instrType!=null and instrType !=''">
+      AND instr_type LIKE CONCAT('%',#{instrType},'%')
+    </if>
+    <if test="instrUser!=null and instrUser !=''">
+      AND instr_user LIKE CONCAT('%',#{instrUser},'%')
+    </if>
+    <if test="instrDpt!=null and instrDpt !=''">
+      AND instr_dpt LIKE CONCAT('%',#{instrDpt},'%')
     </if>
 
     <if test="sortName != null and sortName != '' and sortOrder !=null and sortOrder != ''">
@@ -74,7 +92,7 @@
       #{instrManufacturer,jdbcType=VARCHAR}, #{instrManufacturerId,jdbcType=VARCHAR},
       #{instrUser,jdbcType=VARCHAR}, #{instrDpt,jdbcType=VARCHAR}, #{instrLeaseDate,jdbcType=DATE},
       #{instrConnStatus,jdbcType=VARCHAR}, #{instrValid,jdbcType=TINYINT}, #{instrCcId,jdbcType=VARCHAR},
-      #{instrCollectorId,jdbcType=VARCHAR}, #{instrRuntime,jdbcType=VARCHAR}, #{instrRealRuntime,jdbcType=VARCHAR},
+      #{instrCollectorId,jdbcType=INTEGER}, #{instrRuntime,jdbcType=VARCHAR}, #{instrRealRuntime,jdbcType=VARCHAR},
       #{instrUtilization,jdbcType=VARCHAR}, #{instrOriginalValue,jdbcType=VARCHAR}, #{instrNowValue,jdbcType=VARCHAR},
       #{instrDepreciation,jdbcType=VARCHAR}, #{instrExpireDate,jdbcType=DATE}, #{instrCatg,jdbcType=VARCHAR},
       #{instrRes,jdbcType=VARCHAR}, #{instrAddress,jdbcType=VARCHAR})

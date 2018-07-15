@@ -12,7 +12,7 @@ public interface InstrumentMapper {
 
     int insertSelective(Instrument record);
 
-    Instrument selectByPrimaryKey(Integer id);
+    Instrument selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(Instrument record);
 

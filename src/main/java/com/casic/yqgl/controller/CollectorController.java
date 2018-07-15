@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class collectorController implements ApplicationRunner {
+public class CollectorController implements ApplicationRunner {
     /**
      * 设置UDP IP，端口
      */

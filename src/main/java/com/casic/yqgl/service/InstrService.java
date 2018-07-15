@@ -21,4 +21,6 @@ public interface InstrService {
     Integer saveOrUpdate(Instrument instrument);
 
     Instrument getInstrByCollectorId(Integer collectorId);
+
+    Instrument getByinstrId(String instrId);
 }

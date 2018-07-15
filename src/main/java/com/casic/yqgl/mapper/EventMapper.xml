@@ -17,12 +17,48 @@
     event_id, instr_ip, event_time_count, event_v, event_a, event_w, event_status, event_realtime, 
     collector_id, ip_date
   </sql>
+
+  <select id="getTimeByIdAndDay" parameterType="map" resultType="java.lang.Integer">
+    select
+      IFNULL(SUM(event_time_count),0)
+    from event_old where 1=1
+    <if test="day!=null and day !=''">
+      AND to_days(event_realtime) = to_days(#{day})
+    </if>
+    <if test="collectorId!=null and collectorId !=''">
+    AND collector_id = #{collectorId}
+    </if>
+  </select>
+
+  <select id="getTimeByIdAndMonth" parameterType="map" resultType="java.lang.Integer">
+    select
+    IFNULL(SUM(event_time_count),0)
+    from event_old where 1=1
+    <if test="month!=null and month !=''">
+      AND year(event_realtime) = #{yaer}
+      AND month(event_realtime) = #{month}
+    </if>
+    <if test="collectorId!=null and collectorId !=''">
+      AND collector_id = #{collectorId}
+    </if>
+  </select>
+
+
+  <select id="getTimeById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select
+      IFNULL(SUM(event_time_count),0)
+    from event_old
+    where collector_id = #{collectorId,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from event_old
     where event_id = #{eventId,jdbcType=INTEGER}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from event_old
     where event_id = #{eventId,jdbcType=INTEGER}

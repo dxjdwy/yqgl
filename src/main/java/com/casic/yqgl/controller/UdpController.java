@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class udpController implements ApplicationRunner {
+public class UdpController implements ApplicationRunner {
     private static final int SYNC_TIME_TO_COLLECTOR_INTERVAL = 12*60*60*1000;
     private static final int QUERY_DATA_FROM_COLLECTOR_INTERVAL = 30*60*1000;
     private static final int COLLECTOR_PORT = 8001;

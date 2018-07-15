@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class instrListController {
+public class InstrListController {
     @Autowired
     private InstrService instrService;
 

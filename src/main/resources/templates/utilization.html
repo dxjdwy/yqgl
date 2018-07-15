@@ -1,0 +1,710 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--meta tags-->
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Services Listing HTML5 CSS3 template">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript, services, listing">
+    <meta name="author" content="Ui-DesignLab">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--end meta tags-->
+
+    <title>Dashboard</title>
+    <!--stylesheets-->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
+    <link rel="stylesheet" href="css/bootstrap-table-sticky-header.css">
+    <link rel="stylesheet" href="vendor/css/animate.min.css">
+    <link rel="stylesheet" href="vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/perfect-scrollbar/css/perfect-scrollbar.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/toastr.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
+    <!--end stylesheets-->
+
+    <!--google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Cairo%7CNosifer%7CPoppins%7CQuicksand:700%7CRaleway%7CTangerine%7CHind+Vadodara" rel="stylesheet">
+    <!--end google fonts-->
+
+</head>
+<body>
+
+<!--banner-->
+    <nav class="site-top-nav">
+        <div class="logo">
+            <a href="index">
+                <img src="img/logo.png" alt="">
+                <strong>设备管家</strong>
+            </a>
+        </div>
+        <ul class="site-menu">
+        <li><a href="index">主页</a></li>
+		<li><a href="#">关于我们</a></li>
+        </ul>
+        <i class="nav-toggle fa fa-bars"></i>
+    </nav>
+
+<!--end banner-->
+<!--myModal-->
+<form>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <input type="text" style="display: none" id="instrId" name="instrId" value="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#day">日统计</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#month">月统计</a>
+                </li>
+            </ul>
+
+            <div class="modal-body">
+                <!-- 选项卡内容 -->
+                <div class="tab-content">
+                    <!-- 默认显示内容 -->
+                    <div role="tabpanel" class="tab-pane active" id="day">
+                        <label for="txt_instrTimeByDay">选择时间</label>
+                        <div class="input-group">
+                            <input type="text" id="txt_instrTimeByDay" name="txt_instrTimeByDay" class="form-control form_datetime">
+                            <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                        </div>
+                        <div id="ch_day" style="max-width:100%; height:400px;"></div>
+                        <p class="text-center content">春风如醇酒，著物物不知。</p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="month">
+                        <label for="txt_instrTimeByMonth">选择时间</label>
+                        <div class="input-group">
+                            <input type="text" id="txt_instrTimeByMonth" name="txt_instrTimeByMonth" class="form-control form_datetime">
+                            <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                        </div>
+                        <div id="ch_month" style="max-width:100%; height:400px;"></div>
+                        <p class="text-center content">烈日炎炎似火烧，野田禾稻半枯焦。</p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!--end myModal-->
+<!--our services-->
+
+
+        <h1 align="center">利用率统计</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+
+                <form class="pull-left" id="formSearch" style="padding-bottom:10px;">
+                    <input name="txt_search_instrName" id="txt_search_instrName" placeholder="名称" type="text"
+                           style="float:left;width:150px;margin-right:5px;" class="form-control">
+                    <div style="float:left;margin-right:5px;">
+                        <input name="txt_search_instrId" id="txt_search_instrId" placeholder="编号" type="text"
+                               style="float:left;width:150px;margin-right:5px;" class="form-control">
+                    </div>
+                    <div style="float:left;margin-right:5px;">
+                        <input name="txt_search_instrType" id="txt_search_instrType" placeholder="类型" type="text"
+                               style="float:left;width:150px;margin-right:5px;" class="form-control">
+                    </div>
+                    <div style="float:left;margin-right:5px;">
+                        <input name="txt_search_instrUser" id="txt_search_instrUser" placeholder="借用人" type="text"
+                               style="float:left;width:150px;margin-right:5px;" class="form-control">
+                    </div>
+                    <div style="float:left;margin-right:5px;">
+                        <input name="txt_search_instrDpt" id="txt_search_instrDpt" placeholder="" type="text"
+                               style="float:left;width:150px;margin-right:5px;" class="form-control">
+                    </div>
+                    <div class="btn-group">
+                        <button id="btn_query" type="button" class="btn btn-default btn-space" style="height: 45px">
+                            <span class="fa fa-search" aria-hidden="true" ></span>查询
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!--<div id="toolbar" class="btn-group">-->
+            <!--<button id="btn_add" type="button" class="btn btn-default">-->
+                <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增-->
+            <!--</button>-->
+        <!--</div>-->
+        <table id="tb_instr" style="height: 50%"></table>
+        <table id="chart_instr" style="height: 50%"></table>
+<!--end our services-->
+
+<!--page loader-->
+<div class="page-loader">
+    <div class="loader"><img src="img/logo.png" alt=""></div>
+</div>
+<!--end page loader-->
+
+<div class="bottom-strip">
+    <div class="cards-accepted">
+
+    </div>
+    <div class="copyright"><i class="fa fa-copyright"></i> <span>Copyright &copy; 2018. 航天科工二院二十三所  All rights reserved.</span></div>
+    <div class="country"></div>
+</div>
+<!--end footer section-->
+
+<!--scripts-->
+<script src="js/jquery.min.js"></script>
+<script src="vendor/js/popper.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="vendor/js/alertify.js"></script>
+<script src="vendor/js/jquery.knob.min.js"></script>
+<!--[if IE]><script type="text/javascript" src="vendor/js/excanvas.js"></script><![endif]-->
+<script src="vendor/js/summernote-bs4.min.js"></script>
+<script src="vendor/js/dropzone.js"></script>
+<script src="vendor/OwlCarousel2-2.2.1/owl.carousel.min.js"></script>
+<script src="vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="vendor/js/typed.js"></script>
+<script src="js/app.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootstrap-table.js"></script>
+<script src="js/bootstrap-table-sticky-header.js"></script>
+<script src="js/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="highcharts/highcharts.js"></script>
+<script src="highcharts/themes/dark-unica.js"></script>
+
+<!--end scripts-->
+
+</body>
+<script>
+    toastr.options.positionClass = 'toast-center-center';
+    selections = [];
+    stickyHeaderOffsetY = 0;
+    $(function () {
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+        //2.初始化Button的点击事件
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+         });
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#tb_instr').bootstrapTable({
+
+                url: 'getUtilizationPage',         //请求后台的URL（*）
+                method: 'post',                      //请求方式（*）
+                contentType:"application/x-www-form-urlencoded",
+                toolbar: false,                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: false,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+              //  height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "instrId",                     //每一行的唯一标识，一般为主键列
+                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                stickyHeader:true,
+                stickyHeaderOffsetY:stickyHeaderOffsetY + 'px',
+                onClickRow: function (row, $element) {
+                    $("#myModalLabel").text("设备编号："+row.instrId);
+                    $("#instrId").val(row.instrId);
+                    $('#myModal').modal();
+                },
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return index+1;
+                    }
+                }, {
+                    field: 'instrId',
+                    title: '设备编号',
+                    align: 'center',
+                }, {
+                    field: 'instrName',
+                    title: '设备名称',
+                    align: 'center',
+                    sortable:true,
+                    sortName:'instr_name',
+                }, {
+                    field: 'instrType',
+                    title: '设备类型',
+                    align: 'center',
+                    sortable:true,
+                    sortName:'instr_type',
+                },{
+                    field: 'instrManufacturer',
+                    title: '生产厂家',
+                    align: 'center',
+                    sortable:true,
+                    sortName:'instr_manufacturer',
+                },{
+                    field: 'instrUser',
+                    title: '借用人',
+                    align: 'center',
+                    sortable:true,
+                    sortName:'instr_user',
+                },{
+                    field: 'instrDpt',
+                    title: '借用单位',
+                    align: 'center',
+                    sortable:true,
+                    sortName:'instr_dpt',
+                },{
+                    field: 'instrLeaseDate',
+                    title: '借出日期',
+                    align: 'center',
+                },{
+                    field: 'instrOriginalValue',
+                    title: '原值',
+                    align: 'center',
+                    sortable:true,
+                    sortName:'instr_original_value',
+                },{
+                    field: 'instrNowValue',
+                    title: '净值',
+                    align: 'center',
+                    sortable:true,
+                    sortName:'instr_now_value',
+                },{
+                    field: 'instrCreateDate',
+                    title: '创建日期',
+                    align: 'center',
+                    formatter:function(value, row, index){
+                        if (value!=null) {
+                            var date = new Date(value);
+                            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                        }
+                        return "";
+                    }
+
+                },{
+                    field: 'instrRuntime',
+                    title: '在线时长',
+                    align: 'center',
+
+                },{
+                    field:'instrUtilization',
+                    title: '日平均利用率',
+                    align: 'center',
+
+                },{
+                    field:'instrRes',
+                    title: '月平均利用率',
+                    align: 'center',
+
+                },
+                ]
+            });
+        };
+
+        //操作栏的格式化
+        // function actionFormatter(value, row, index) {
+        //     var id = value;
+        //     var result = "";
+        //
+        //     result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + row.instrId + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+        //     result += "<a href='javascript:;' class='btn btn-xs red'  onclick=\"DeleteById('" + row.instrId + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+        //     return result;
+        // }
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                sortName:params.sort,
+                sortOrder:this.sortOrder,
+
+                instrName: $("#txt_search_instrName").val(),
+                instrId: $("#txt_search_instrId").val(),
+                instrType:$("#txt_search_instrType").val(),
+                instrUser:$("#txt_search_instrUser").val(),
+                instrDpt:$("#txt_search_instrDpt").val()
+
+            };
+            return temp;
+
+        };
+        return oTableInit;
+    };
+
+
+    var ButtonInit = function () {
+        var oInit = new Object();
+        var postdata = {};
+
+        oInit.Init = function () {
+            //初始化页面上面的按钮事件
+            // 日历
+            $('#txt_instrTimeByDay').datetimepicker({
+                minView: "year", //选择日期后，不会再跳转去选择时分秒
+                startView:"year",
+                format: 'yyyy-mm',
+                autoclose: 1,
+            }).on('changeMonth', function(e){
+                console.log(e.date);
+            });
+
+            $('#txt_instrTimeByMonth').datetimepicker({
+                minView: "decade",
+                startView:"decade",
+                format: 'yyyy',
+                autoclose: 1,
+            }).on('changeYear', function(e){
+                var date = new Date(e.data);
+
+                $(function () {
+                    var options={
+                        chart:{
+                            renderTo:'ch_month',
+                            type:'line'//line column
+                        },
+                        xAxis: {
+                            categories: ['1月', '2月', '3月', '4月', '5月', '6月',
+                                '7月', '8月', '9月', '10月', '11月', '12月']
+                        },
+                        yAxis: {
+                            title: {
+                                text: '小时'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#808080'
+                            }]
+                        },
+                        tooltip: {
+                            valueSuffix: '小时'
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle',
+                            borderWidth: 0
+                        },
+                        Loading:{
+                            hideDuration: 1000,//淡出效果的持续时间（以毫秒为单位）
+                            showDuration: 1000,//淡入效果的持续时间（以毫秒为单位）
+                            labelStyle: {//加载标签的span的CSS样式
+                                fontStyle: 'italic',
+                                color:'red',
+                                fontSize:"40px"
+                            },
+                            style: {//覆盖在绘图区的加载页面的样式
+                                position: 'absolute',
+                                backgroundColor: 'white',
+                                opacity: 0.5,
+                                textAlign: 'center',
+                                color:'red'
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: []
+                    }
+                    var oChart = null;
+                    oChart = new Highcharts.Chart(options);
+                    Load_SeriesData();
+
+                    function Load_SeriesData(){
+                        oChart.showLoading("Loading....");
+                        $.ajax({
+                            url : 'utilization/getTimeByMonth',
+                            type : 'POST',
+                            dataType : 'json',
+                            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                            data:{
+                                year:date.getFullYear(),
+                                instrId: $("#instrId").val(),
+                            },
+                            success : function(Data){
+                                console.log(Data);
+
+                                for(i=0; i<Data.length;i++){
+                                    var DataSeries = {
+                                        name: Data[i].name,
+                                        data: Data[i].time
+                                    };
+
+                                    oChart.addSeries(DataSeries);
+                                }
+                                oChart.hideLoading("Loading....");
+                            }
+                        });
+
+                    }
+                });
+            });
+
+
+            $("#btn_query").click(function () {
+
+                $("#tb_instr").bootstrapTable('refresh');
+            });
+
+
+            // $("#btn_add").click(function () {
+            //     $("#myModalLabel").text("新增");
+            //     $('#myModal').modal();
+            //
+            // });
+
+        // $("#btn_submit").click(function () {
+        //         $.ajax({
+        //             type: "post",
+        //             url: "instr/saveOrUpdate",
+        //             contentType:"application/x-www-form-urlencoded",
+        //             data: {
+        //                 instrId:$('#txt_instrId').val(),
+        //                 instrName: $("#txt_instrName").val(),
+        //                 instrType: $("#txt_instrType").val(),
+        //                 instrIp:$("#txt_instrIp").val(),
+        //                 instrCreateDate:$("#txt_instrCreateDate").val(),
+        //                 instrManufacturer:$("#txt_instrManufacturer").val(),
+        //                 instrAddress:$("#txt_instrAddress").val(),
+        //                 instrUser:$("#txt_instrUser").val(),
+        //                 instrDpt:$("#txt_instrDpt").val(),
+        //                 instrLeaseDate:$("#txt_instrLeaseDate").val(),
+        //                 instrCcId:$("#txt_instrCcId").val(),
+        //                 instrOriginalValue:$("#txt_instrOriginalValue").val(),
+        //                 instrNowValue:$("#txt_instrNowValue").val(),
+        //                 instrExpireDate:$("#txt_instrExpireDate").val(),
+        //                 instrValid:$("#txt_instrValid").val(),
+        //
+        //             },
+        //             success: function (data, status) {
+        //                 if (status == "success") {
+        //                     toastr.success('添加成功');
+        //                     $("#tb_instr").bootstrapTable('refresh');
+        //                 }
+        //             },
+        //             error: function () {
+        //                 toastr.error('添加失败');
+        //             },
+        //             complete: function () {
+        //
+        //             }
+        //         });
+        //
+        //
+        // });
+        };
+        return oInit;
+    };
+    // function EditViewById(id) {
+    //     var $table = $('#tb_instr');
+    //     var row = $table.bootstrapTable('getRowByUniqueId', id);
+    //         $('#txt_instrId').val(row.instrId);
+    //         $("#txt_instrName").val(row.instrName);
+    //         $("#txt_instrType").val(row.instrType);
+    //         $("#txt_instrIp").val(row.instrIp);
+    //         $("#txt_instrCreateDate").val(row.instrCreateDate);
+    //         $("#txt_instrManufacturer").val(row.instrManufacturer);
+    //         $("#txt_instrAddress").val(row.instrAddress);
+    //         $("#txt_instrUser").val(row.instrUser);
+    //         $("#txt_instrDpt").val(row.instrDpt);
+    //         $("#txt_instrLeaseDate").val(row.instrLeaseDate);
+    //         $("#txt_instrCcId").val(row.instrCcId);
+    //         $("#txt_instrOriginalValue").val(row.instrOriginalValue);
+    //         $("#txt_instrNowValue").val(row.instrNowValue);
+    //         $("#txt_instrExpireDate").val(row.instrExpireDate);
+    //         $("#txt_instrValid").val(row.instrValid);
+    //
+    //     $("#myModalLabel").text("编辑");
+    //     $('#myModal').modal();
+    // }
+
+    //组件封装
+    // (function ($) {
+    //
+    //     window.Ewin = function () {
+    //         var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+    //             '<div class="modal-dialog modal-sm">' +
+    //             '<div class="modal-content">' +
+    //             '<div class="modal-header">' +
+    //             '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+    //             '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+    //             '</div>' +
+    //             '<div class="modal-body">' +
+    //             '<p>[Message]</p>' +
+    //             '</div>' +
+    //             '<div class="modal-footer">' +
+    //             '<button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>' +
+    //             '<button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>' +
+    //             '</div>' +
+    //             '</div>' +
+    //             '</div>' +
+    //             '</div>';
+    //
+    //
+    //         var dialogdHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+    //             '<div class="modal-dialog">' +
+    //             '<div class="modal-content">' +
+    //             '<div class="modal-header">' +
+    //             '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+    //             '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+    //             '</div>' +
+    //             '<div class="modal-body">' +
+    //             '</div>' +
+    //             '</div>' +
+    //             '</div>' +
+    //             '</div>';
+    //         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+    //         var generateId = function () {
+    //             var date = new Date();
+    //             return 'mdl' + date.valueOf();
+    //         }
+    //         var init = function (options) {
+    //             options = $.extend({}, {
+    //                 title: "操作提示",
+    //                 message: "提示内容",
+    //                 btnok: "确定",
+    //                 btncl: "取消",
+    //                 width: 200,
+    //                 auto: false
+    //             }, options || {});
+    //             var modalId = generateId();
+    //             var content = html.replace(reg, function (node, key) {
+    //                 return {
+    //                     Id: modalId,
+    //                     Title: options.title,
+    //                     Message: options.message,
+    //                     BtnOk: options.btnok,
+    //                     BtnCancel: options.btncl
+    //                 }[key];
+    //             });
+    //             $('body').append(content);
+    //             $('#' + modalId).modal({
+    //                 width: options.width,
+    //                 backdrop: 'static'
+    //             });
+    //             $('#' + modalId).on('hide.bs.modal', function (e) {
+    //                 $('body').find('#' + modalId).remove();
+    //             });
+    //             return modalId;
+    //         }
+    //
+    //         return {
+    //             alert: function (options) {
+    //                 if (typeof options == 'string') {
+    //                     options = {
+    //                         message: options
+    //                     };
+    //                 }
+    //                 var id = init(options);
+    //                 var modal = $('#' + id);
+    //                 modal.find('.ok').removeClass('btn-success').addClass('btn-primary');
+    //                 modal.find('.cancel').hide();
+    //
+    //                 return {
+    //                     id: id,
+    //                     on: function (callback) {
+    //                         if (callback && callback instanceof Function) {
+    //                             modal.find('.ok').click(function () { callback(true); });
+    //                         }
+    //                     },
+    //                     hide: function (callback) {
+    //                         if (callback && callback instanceof Function) {
+    //                             modal.on('hide.bs.modal', function (e) {
+    //                                 callback(e);
+    //                             });
+    //                         }
+    //                     }
+    //                 };
+    //             },
+    //             confirm: function (options) {
+    //                 var id = init(options);
+    //                 var modal = $('#' + id);
+    //                 modal.find('.ok').removeClass('btn-primary').addClass('btn-success');
+    //                 modal.find('.cancel').show();
+    //                 return {
+    //                     id: id,
+    //                     on: function (callback) {
+    //                         if (callback && callback instanceof Function) {
+    //                             modal.find('.ok').click(function () { callback(true); });
+    //                             modal.find('.cancel').click(function () { callback(false); });
+    //                         }
+    //                     },
+    //                     hide: function (callback) {
+    //                         if (callback && callback instanceof Function) {
+    //                             modal.on('hide.bs.modal', function (e) {
+    //                                 callback(e);
+    //                             });
+    //                         }
+    //                     }
+    //                 };
+    //             },
+    //             dialog: function (options) {
+    //                 options = $.extend({}, {
+    //                     title: 'title',
+    //                     url: '',
+    //                     width: 800,
+    //                     height: 550,
+    //                     onReady: function () { },
+    //                     onShown: function (e) { }
+    //                 }, options || {});
+    //                 var modalId = generateId();
+    //
+    //                 var content = dialogdHtml.replace(reg, function (node, key) {
+    //                     return {
+    //                         Id: modalId,
+    //                         Title: options.title
+    //                     }[key];
+    //                 });
+    //                 $('body').append(content);
+    //                 var target = $('#' + modalId);
+    //                 target.find('.modal-body').load(options.url);
+    //                 if (options.onReady())
+    //                     options.onReady.call(target);
+    //                 target.modal();
+    //                 target.on('shown.bs.modal', function (e) {
+    //                     if (options.onReady(e))
+    //                         options.onReady.call(target, e);
+    //                 });
+    //                 target.on('hide.bs.modal', function (e) {
+    //                     $('body').find(target).remove();
+    //                 });
+    //             }
+    //         }
+    //     }();
+    // })(jQuery);
+</script>
+</html>
+
