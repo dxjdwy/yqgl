@@ -35,4 +35,9 @@ public class CollectorServiceImpl implements CollectorService {
     public Integer getTotal() {
         return collectorMapper.getTotal();
     }
+
+    @Override
+    public List<Collector> getCollectorList() {
+        return collectorMapper.getCollectorList();
+    }
 }

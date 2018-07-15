@@ -19,6 +19,10 @@ public class Event {
 
     private Date eventRealtime;
 
+    private Integer collectorId;
+
+    private String ipDate;
+
     public Integer getEventId() {
         return eventId;
     }
@@ -81,5 +85,21 @@ public class Event {
 
     public void setEventRealtime(Date eventRealtime) {
         this.eventRealtime = eventRealtime;
+    }
+
+    public Integer getCollectorId() {
+        return collectorId;
+    }
+
+    public void setCollectorId(Integer collectorId) {
+        this.collectorId = collectorId;
+    }
+
+    public String getIpDate() {
+        return ipDate;
+    }
+
+    public void setIpDate(String ipDate) {
+        this.ipDate = ipDate;
     }
 }

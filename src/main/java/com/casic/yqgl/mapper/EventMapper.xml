@@ -10,30 +10,55 @@
     <result column="event_w" jdbcType="DOUBLE" property="eventW" />
     <result column="event_status" jdbcType="VARCHAR" property="eventStatus" />
     <result column="event_realtime" jdbcType="TIMESTAMP" property="eventRealtime" />
+    <result column="collector_id" jdbcType="INTEGER" property="collectorId" />
+    <result column="ip_date" jdbcType="VARCHAR" property="ipDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    event_id, instr_ip, event_time_count, event_v, event_a, event_w, event_status, event_realtime
+    event_id, instr_ip, event_time_count, event_v, event_a, event_w, event_status, event_realtime, 
+    collector_id, ip_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from event
+    from event_old
     where event_id = #{eventId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from event
+    delete from event_old
     where event_id = #{eventId,jdbcType=INTEGER}
   </delete>
+
+  <insert id="saveOrUpdate" parameterType="com.casic.yqgl.model.Event">
+    insert into event_old (event_id, instr_ip, event_time_count,
+                           event_v, event_a, event_w,
+                           event_status, event_realtime, collector_id,
+                           ip_date)
+    values (#{eventId,jdbcType=INTEGER}, #{instrIp,jdbcType=VARCHAR}, #{eventTimeCount,jdbcType=INTEGER},
+            #{eventV,jdbcType=DOUBLE}, #{eventA,jdbcType=DOUBLE}, #{eventW,jdbcType=DOUBLE},
+            #{eventStatus,jdbcType=VARCHAR}, #{eventRealtime,jdbcType=TIMESTAMP}, #{collectorId,jdbcType=INTEGER},
+            #{ipDate,jdbcType=VARCHAR})
+    ON DUPLICATE KEY UPDATE
+      instr_ip=values(instr_ip),
+      event_time_count=values(event_time_count),
+      event_v=values(event_v),
+      event_a=values(event_a),
+      event_w=values( event_w),
+      event_status=values(event_status),
+      event_realtime=values(event_realtime),
+      collector_id=values(collector_id)
+  </insert>
   <insert id="insert" parameterType="com.casic.yqgl.model.Event">
-    insert into event (event_id, instr_ip, event_time_count, 
+    insert into event_old (event_id, instr_ip, event_time_count, 
       event_v, event_a, event_w, 
-      event_status, event_realtime)
+      event_status, event_realtime, collector_id, 
+      ip_date)
     values (#{eventId,jdbcType=INTEGER}, #{instrIp,jdbcType=VARCHAR}, #{eventTimeCount,jdbcType=INTEGER}, 
       #{eventV,jdbcType=DOUBLE}, #{eventA,jdbcType=DOUBLE}, #{eventW,jdbcType=DOUBLE}, 
-      #{eventStatus,jdbcType=VARCHAR}, #{eventRealtime,jdbcType=TIMESTAMP})
+      #{eventStatus,jdbcType=VARCHAR}, #{eventRealtime,jdbcType=TIMESTAMP}, #{collectorId,jdbcType=INTEGER}, 
+      #{ipDate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.casic.yqgl.model.Event">
-    insert into event
+    insert into event_old
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="eventId != null">
         event_id,
@@ -58,6 +83,12 @@
       </if>
       <if test="eventRealtime != null">
         event_realtime,
+      </if>
+      <if test="collectorId != null">
+        collector_id,
+      </if>
+      <if test="ipDate != null">
+        ip_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -85,10 +116,16 @@
       <if test="eventRealtime != null">
         #{eventRealtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="collectorId != null">
+        #{collectorId,jdbcType=INTEGER},
+      </if>
+      <if test="ipDate != null">
+        #{ipDate,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.casic.yqgl.model.Event">
-    update event
+    update event_old
     <set>
       <if test="instrIp != null">
         instr_ip = #{instrIp,jdbcType=VARCHAR},
@@ -111,18 +148,26 @@
       <if test="eventRealtime != null">
         event_realtime = #{eventRealtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="collectorId != null">
+        collector_id = #{collectorId,jdbcType=INTEGER},
+      </if>
+      <if test="ipDate != null">
+        ip_date = #{ipDate,jdbcType=VARCHAR},
+      </if>
     </set>
     where event_id = #{eventId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.casic.yqgl.model.Event">
-    update event
+    update event_old
     set instr_ip = #{instrIp,jdbcType=VARCHAR},
       event_time_count = #{eventTimeCount,jdbcType=INTEGER},
       event_v = #{eventV,jdbcType=DOUBLE},
       event_a = #{eventA,jdbcType=DOUBLE},
       event_w = #{eventW,jdbcType=DOUBLE},
       event_status = #{eventStatus,jdbcType=VARCHAR},
-      event_realtime = #{eventRealtime,jdbcType=TIMESTAMP}
+      event_realtime = #{eventRealtime,jdbcType=TIMESTAMP},
+      collector_id = #{collectorId,jdbcType=INTEGER},
+      ip_date = #{ipDate,jdbcType=VARCHAR}
     where event_id = #{eventId,jdbcType=INTEGER}
   </update>
 </mapper>

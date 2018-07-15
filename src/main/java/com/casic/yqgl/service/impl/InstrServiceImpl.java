@@ -39,6 +39,11 @@ public class InstrServiceImpl implements InstrService {
     }
 
     @Override
+    public Instrument getInstrByCollectorId(Integer collectorId) {
+        return instrumentMapper.getInstrByCollectorId(collectorId);
+    }
+
+    @Override
     public List<Instrument> getInstrListPage(Instrument instrument) {
         return instrumentMapper.getInstrListPage(instrument);
     }

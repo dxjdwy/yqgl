@@ -18,6 +18,8 @@ public interface InstrumentMapper {
 
     int updateByPrimaryKey(Instrument record);
 
+    Instrument getInstrByCollectorId(Integer CollectorId);
+
     List<Instrument> getInstrList();
 
     List<Instrument> getInstrListPage(Instrument instrument);

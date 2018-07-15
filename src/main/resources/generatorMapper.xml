@@ -4,8 +4,13 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+    <!--<classPathEntry-->
+            <!--location="/Users/duanxiaojie/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"-->
+    <!--/>-->
     <classPathEntry
-            location="/Users/duanxiaojie/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>
+            location="D:\Maven\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"
+        />
+
     <context id="my" targetRuntime="MyBatis3">
         <commentGenerator>
 
@@ -40,20 +45,20 @@
             <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
                                 <!--replaceString=""/>&ndash;&gt;-->
         <!--</table>-->
-        <!--<table tableName="event" domainObjectName="Event"-->
-               <!--enableCountByExample="false" enableUpdateByExample="false"-->
-               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--selectByExampleQueryId="false">-->
-            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
-                                <!--replaceString=""/>&ndash;&gt;-->
-        <!--</table>-->
-        <table tableName="collector" domainObjectName="Collector"
+        <table tableName="event_old" domainObjectName="Event"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
             <!--<columnRenamingRule searchString="^D_"
                                 replaceString=""/>-->
         </table>
+        <!--<table tableName="collector" domainObjectName="Collector"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
         <!--<table tableName="ty_equip" domainObjectName="TarEquip"-->
                <!--enableCountByExample="false" enableUpdateByExample="false"-->
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->

@@ -21,4 +21,6 @@ public interface CollectorMapper {
 
     int getTotal();
 
+    List<Collector> getCollectorList();
+
 }

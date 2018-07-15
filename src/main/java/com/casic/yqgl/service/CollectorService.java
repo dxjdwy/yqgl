@@ -5,7 +5,7 @@ import com.casic.yqgl.model.Collector;
 import java.util.List;
 
 public interface CollectorService {
-    public List<Collector> getCollectorListPage(Collector collector);
+   List<Collector> getCollectorListPage(Collector collector);
 
     Integer insert(Collector collector);
 
@@ -14,4 +14,6 @@ public interface CollectorService {
     Integer update(Collector collector);
 
     Integer getTotal();
+
+    List<Collector> getCollectorList();
 }

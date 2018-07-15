@@ -5,10 +5,10 @@ import com.casic.yqgl.model.Instrument;
 import java.util.List;
 
 public interface InstrService {
-    public List<Instrument> getInstrList();
+   List<Instrument> getInstrList();
 
 
-    public List<Instrument> getInstrListPage(Instrument instrument);
+    List<Instrument> getInstrListPage(Instrument instrument);
 
     Integer getTotal();
 
@@ -19,4 +19,6 @@ public interface InstrService {
     Integer update(Instrument instrument);
 
     Integer saveOrUpdate(Instrument instrument);
+
+    Instrument getInstrByCollectorId(Integer collectorId);
 }
