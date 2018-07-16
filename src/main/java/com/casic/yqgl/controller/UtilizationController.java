@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -49,10 +53,11 @@ public class UtilizationController {
     @RequestMapping("utilization/getTimeByMonth")
     @ResponseBody
     public List<Map> getTimeByMonth(String year,String instrId){
-        if (instrId != null && instrId != "" && year != null && year != ""){
+        if (instrId != null && instrId != "" ){
             Instrument instrument = instrService.getByinstrId(instrId);
             double[] timeArray = new double[12];
             Map map = new HashMap();
+
             map.put("year",year);
             map.put("collectorId",instrument.getInstrCollectorId());
             for (int i = 0; i < 12; i++) {
@@ -60,12 +65,41 @@ public class UtilizationController {
                 int res = eventService.getTimeByIdAndMonth(map);
                 timeArray[i] = res/60;
             }
-            List<Map> resMapLsit = new ArrayList<>();
+            List<Map> resMapList = new ArrayList<>();
             Map resMap = new HashMap();
             resMap.put("name",instrId);
             resMap.put("time",timeArray);
-            resMapLsit.add(resMap);
-            return resMapLsit;
+            resMapList.add(resMap);
+            return resMapList;
+        }
+
+        return null;
+    }
+    @RequestMapping("utilization/getTimeByDay")
+    @ResponseBody
+    public List<Map> getTimeByDay(String dateStr,String instrId) throws ParseException {
+        if (instrId != null && instrId != "" ){
+            Instrument instrument = instrService.getByinstrId(instrId);
+            DateFormat format = new SimpleDateFormat("yyyy-MM");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(format.parse(dateStr));
+            double[] timeArray = new double[calendar.getActualMaximum(Calendar.DATE)];
+            Map map = new HashMap();
+
+            map.put("collectorId",instrument.getInstrCollectorId());
+            for (int i = 0; i < timeArray.length; i++) {
+                calendar.set(Calendar.DATE,(i+1));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                map.put("day",sdf.format(calendar.getTime()));
+                int res = eventService.getTimeByIdAndDay(map);
+                timeArray[i] = res/60;
+            }
+            List<Map> resMapList = new ArrayList<>();
+            Map resMap = new HashMap();
+            resMap.put("name",instrId);
+            resMap.put("time",timeArray);
+            resMapList.add(resMap);
+            return resMapList;
         }
 
         return null;

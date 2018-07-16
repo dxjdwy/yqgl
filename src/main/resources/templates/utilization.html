@@ -78,7 +78,7 @@
                             <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
                         </div>
                         <div id="ch_day" style="max-width:100%; height:400px;"></div>
-                        <p class="text-center content">春风如醇酒，著物物不知。</p>
+
                     </div>
                     <div role="tabpanel" class="tab-pane" id="month">
                         <label for="txt_instrTimeByMonth">选择时间</label>
@@ -87,7 +87,7 @@
                             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
                         </div>
                         <div id="ch_month" style="max-width:100%; height:400px;"></div>
-                        <p class="text-center content">烈日炎炎似火烧，野田禾稻半枯焦。</p>
+
                     </div>
 
                 </div>
@@ -229,7 +229,7 @@
                 showColumns: true,                  //是否显示所有的列
                 showRefresh: true,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
-                clickToSelect: true,                //是否启用点击选中行
+                clickToSelect: false,                //是否启用点击选中行
               //  height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                 uniqueId: "instrId",                     //每一行的唯一标识，一般为主键列
                 showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
@@ -243,7 +243,7 @@
                     $('#myModal').modal();
                 },
                 columns: [{
-                    checkbox: true
+                    checkbox: false
                 }, {
                     field: 'id',
                     title: '序号',
@@ -378,30 +378,31 @@
                 format: 'yyyy-mm',
                 autoclose: 1,
             }).on('changeMonth', function(e){
-                console.log(e.date);
-            });
 
-            $('#txt_instrTimeByMonth').datetimepicker({
-                minView: "decade",
-                startView:"decade",
-                format: 'yyyy',
-                autoclose: 1,
-            }).on('changeYear', function(e){
-                var date = new Date(e.data);
                 $(function () {
                     var options={
                         chart:{
-                            renderTo:'ch_month',
+                            renderTo:'ch_day',
                             type:'line'//line column
                         },
+                        title: "",
+                        plotOptions: {
+                            series: {
+                                pointStart: Date.UTC(e.date.getFullYear(),e.date.getMonth() , 1), // 开始值
+                                pointInterval: 24 * 3600 * 1000 // 间隔一天
+                            }
+                        },
                         xAxis: {
-                            categories: ['1月', '2月', '3月', '4月', '5月', '6月',
-                                '7月', '8月', '9月', '10月', '11月', '12月']
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                day: '%d'
+                            }
                         },
                         yAxis: {
                             title: {
                                 text: '小时'
                             },
+                            floor: 0,
                             plotLines: [{
                                 value: 0,
                                 width: 1,
@@ -412,10 +413,98 @@
                             valueSuffix: '小时'
                         },
                         legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'middle',
-                            borderWidth: 0
+                            enabled: false
+                        },
+                        Loading:{
+                            hideDuration: 1000,//淡出效果的持续时间（以毫秒为单位）
+                            showDuration: 1000,//淡入效果的持续时间（以毫秒为单位）
+                            labelStyle: {//加载标签的span的CSS样式
+                                fontStyle: 'italic',
+                                color:'red',
+                                fontSize:"40px"
+                            },
+                            style: {//覆盖在绘图区的加载页面的样式
+                                position: 'absolute',
+                                backgroundColor: 'white',
+                                opacity: 0.5,
+                                textAlign: 'center',
+                                color:'red'
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: []
+                    }
+                    var oChart = null;
+                    oChart = new Highcharts.Chart(options);
+
+                    Load_SeriesData();
+
+                    function Load_SeriesData(){
+                        oChart.showLoading("Loading....");
+                        $.ajax({
+                            url : 'utilization/getTimeByDay',
+                            type : 'POST',
+                            dataType : 'json',
+                            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                            data:{
+                                dateStr:e.date.getFullYear()+"-"+(e.date.getMonth()+1),
+                                instrId: $("#instrId").val(),
+                            },
+                            success : function(Data){
+                                console.log(Data);
+
+                                for(var i=0; i<Data.length;i++){
+                                    var DataSeries = {
+                                        name: Data[i].name,
+                                        data: Data[i].time
+                                    };
+
+                                    oChart.addSeries(DataSeries);
+                                }
+                                oChart.hideLoading("Loading....");
+                            }
+                        });
+
+                    }
+                });
+            });
+
+            $('#txt_instrTimeByMonth').datetimepicker({
+                minView: "decade",
+                startView:"decade",
+                format: 'yyyy',
+                autoclose: 1,
+            }).on('changeYear', function(e){
+
+                $(function () {
+                    var options={
+                        chart:{
+                            renderTo:'ch_month',
+                            type:'line'//line column
+                        },
+                        title: "",
+                        xAxis: {
+                            categories: ['1月', '2月', '3月', '4月', '5月', '6月',
+                                '7月', '8月', '9月', '10月', '11月', '12月']
+                        },
+                        yAxis: {
+                            title: {
+                                text: '小时'
+                            },
+                            floor: 0,
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#808080'
+                            }]
+                        },
+                        tooltip: {
+                            valueSuffix: '小时'
+                        },
+                        legend: {
+                            enabled: false
                         },
                         Loading:{
                             hideDuration: 1000,//淡出效果的持续时间（以毫秒为单位）
@@ -451,7 +540,7 @@
                             dataType : 'json',
                             contentType: "application/x-www-form-urlencoded; charset=utf-8",
                             data:{
-                                year:date.getFullYear(),
+                                year:e.date.getFullYear(),
                                 instrId: $("#instrId").val(),
                             },
                             success : function(Data){
